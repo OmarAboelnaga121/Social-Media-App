@@ -20,18 +20,19 @@ userRoutes.get('/api/user/:id', async(req, res) => {
 
 userRoutes.put('/api/user/addFriend', async(req, res) => {
     try {
-        const { userId, friendUser, displayName, Image } = req.body;
-        console.log(req.body);
-        const checkFriend = await DiscordUser.findById(friendUser) || await USER.findById(friendUser) || await GoogleUser.findById(friendUser);
+        const { userId, friendUserId } = req.body;
+
         const checkUser = await DiscordUser.findById(userId) || await USER.findById(userId) || await GoogleUser.findById(userId);
-    
+
+        const checkFriend = await DiscordUser.findById(friendUserId) || await USER.findById(friendUserId) || await GoogleUser.findById(friendUserId);
+
         if (!checkFriend) return res.status(400).json({ message: "Friend Not Found" });
         if (!checkUser) return res.status(400).json({ message: "User Not Found" });
     
         const friend = {
-            id: friendUser, 
-            displayName: displayName,
-            Image: Image
+            id: friendUserId, 
+            displayName: checkFriend.displayName,
+            Image: checkFriend.photo
         };
     
         checkUser.friends.push(friend);

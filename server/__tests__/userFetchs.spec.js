@@ -47,33 +47,123 @@ describe("All Reqs", () => {
     })
 
     describe('All Put Reqs', () => {
-        it('PUT Req ==> Put Friend Succeffully => 200', async () => {
-            const mockFriend = { 
-                "id": 1,
-                "displayName": "anson@123", 
-                "Image": "hello123" ,
+        it('should add a friend to the user', async () => {
+            const userId = 1;
+            const friendUserId = 2;
+    
+            const mockUser = {
+                _id: userId,
+                friends: [],
+                save: jest.fn().mockResolvedValue(true),
             };
-
-            USER.findById.mockResolvedValue(mockFriend);
-            DiscordUser.findById.mockResolvedValue(mockFriend);
-            GoogleUser.findById.mockResolvedValue(mockFriend);
-
-
-            const mockUser = { 
-                "id": 1,
-                "mail": "anson@123", 
-                "password": "hello123" ,
-                friend:[]
+    
+            const mockFriend = {
+                _id: friendUserId,
+                displayName: 'Friend Display Name',
+                Image: 'Friend Image URL',
             };
-
-            USER.findById.mockResolvedValue(mockUser);
+    
+            // Mock the findById methods
             DiscordUser.findById.mockResolvedValue(mockUser);
+            USER.findById.mockResolvedValue(mockUser);
             GoogleUser.findById.mockResolvedValue(mockUser);
-
-            const response = await request(routes).put('/api/user/1').send;
-
+    
+            DiscordUser.findById.mockResolvedValue(mockUser);
+            USER.findById.mockResolvedValue(mockUser);
+            GoogleUser.findById.mockResolvedValue(mockFriend);
+    
+            const response = await request(routes)
+                .put('/api/user/addFriend')
+                .send({ userId, friendUserId });
+    
             expect(response.status).toBe(200);
-            expect(response.body).toEqual(mockUser);
         });
+
+        it('PUT Req ==> Do Not Add Friend that is not found ==> 400', async () => {
+            const userId = 1;
+            const friendUserId = 2;
+    
+            const mockUser = {
+                _id: 2,
+                friends: [],
+                save: jest.fn().mockResolvedValue(true),
+            };
+    
+            const mockFriend = {
+                _id: friendUserId,
+                displayName: 'Friend Display Name',
+                Image: 'Friend Image URL',
+            };
+    
+            DiscordUser.findById.mockResolvedValue(null);
+            USER.findById.mockResolvedValue(null);
+            GoogleUser.findById.mockResolvedValue(null);
+    
+            const response = await request(routes)
+                .put('/api/user/addFriend')
+                .send({ userId, friendUserId });
+    
+            expect(response.status).toBe(400);
+        });
+    
+        it('PUT Req ==> Delete Friend Successfully ==> 200', async () => {
+            const userId = 1;
+            const friendUserId = 2;
+    
+            const mockUser = {
+                _id: userId,
+                friends: [],
+                save: jest.fn().mockResolvedValue(true),
+            };
+    
+            const mockFriend = {
+                _id: friendUserId,
+                displayName: 'Friend Display Name',
+                Image: 'Friend Image URL',
+            };
+    
+            // Mock the findById methods
+            DiscordUser.findById.mockResolvedValue(mockUser);
+            USER.findById.mockResolvedValue(mockUser);
+            GoogleUser.findById.mockResolvedValue(mockUser);
+    
+            DiscordUser.findById.mockResolvedValue(mockUser);
+            USER.findById.mockResolvedValue(mockUser);
+            GoogleUser.findById.mockResolvedValue(mockFriend);
+    
+            const response = await request(routes)
+                .put('/api/user/addFriend')
+                .send({ userId, friendUserId });
+    
+            expect(response.status).toBe(200);
+        });
+
+        it('PUT Req ==> Delete Friend that is not found ==> 400', async () => {
+            const userId = 1;
+            const friendUserId = 2;
+    
+            const mockUser = {
+                _id: 2,
+                friends: [],
+                save: jest.fn().mockResolvedValue(true),
+            };
+    
+            const mockFriend = {
+                _id: friendUserId,
+                displayName: 'Friend Display Name',
+                Image: 'Friend Image URL',
+            };
+    
+            DiscordUser.findById.mockResolvedValue(null);
+            USER.findById.mockResolvedValue(null);
+            GoogleUser.findById.mockResolvedValue(null);
+    
+            const response = await request(routes)
+                .put('/api/user/addFriend')
+                .send({ userId, friendUserId });
+    
+            expect(response.status).toBe(400);
+        });
+    
     })
 })
