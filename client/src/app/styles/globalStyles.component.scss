@@ -1,0 +1,18 @@
+.primaryButton{
+    background-color: var(--primary-color);
+    border: 0;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
+    color: var(--white-color);
+    width: 100%;
+}
+.secondryButton{
+    background-color: var(--white-color);
+    border: var(--primary-color) solid 2px;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
+    color: var(--secondry-color);
+    width: 100%;
+}

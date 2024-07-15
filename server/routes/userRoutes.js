@@ -67,12 +67,14 @@ userRoutes.post('/api/users/register', upload.single('image'), async(req, res) =
 userRoutes.get('/api/auth-status', (req, res) => {
     try {
         console.log('Checking authentication status...');
-        if (! req.user) {
+        if (!req.user) {
             console.log('User is not authenticated.');
-            res.status(400).send(false);
+            res.send(false);
+        }else{
+            console.log('User is authenticated.');
+            res.send(true);
         }
-        console.log('User is authenticated.');
-        res.status(200).send(true);
+
     } catch (error) {
         res.status(500).send(error);
     }

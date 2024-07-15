@@ -1,0 +1,26 @@
+header{
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .unAuthanticatedContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        .logo{
+            color: var(--secondry-color);
+            font-weight: 200;
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 0; 
+            margin: 0;
+            padding: 0;
+            span{
+                color: var(--primary-color);
+            }
+        }
+    }
+}
