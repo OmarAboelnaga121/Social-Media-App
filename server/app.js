@@ -14,9 +14,17 @@ const discordPassport = require('./stratgies/discord-stratgy');
 const googlePassport = require('./stratgies/google-stratgy');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json'); 
+const cors = require('cors');
 
 // Required to get the data from ==> .env
 require('dotenv').config();
+
+const corsOptions = {
+    origin: 'http://localhost:4200', 
+    optionsSuccessStatus: 200 
+  };
+  
+  app.use(cors(corsOptions));
 
 // Middlewares
 app.use(express.json());

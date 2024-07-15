@@ -5,6 +5,7 @@ const USER = require('../db/models/user')
 const Friend = require('../db/models/small models/friendsSchema')
 const DiscordUser = require('../db/models/discordUser')
 const GoogleUser = require('../db/models/googleUser')
+const passport = require('passport');
 
 
 userRoutes.get('/api/user/:id', async(req, res) => {
@@ -17,6 +18,7 @@ userRoutes.get('/api/user/:id', async(req, res) => {
         res.status(500).json(error);
     }
 });
+
 
 userRoutes.put('/api/user/addFriend', async(req, res) => {
     try {

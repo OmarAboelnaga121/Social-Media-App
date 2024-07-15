@@ -29,8 +29,6 @@ userRoutes.get('/api/users', async(req, res) => {
     }
 });
 
-
-
 // Register user
 userRoutes.post('/api/users/register', upload.single('image'), async(req, res) => {
     try {
@@ -66,6 +64,20 @@ userRoutes.post('/api/users/register', upload.single('image'), async(req, res) =
     }
 });
 
+userRoutes.get('/api/auth-status', (req, res) => {
+    try {
+        console.log('Checking authentication status...');
+        if (! req.user) {
+            console.log('User is not authenticated.');
+            res.status(400).send(false);
+        }
+        console.log('User is authenticated.');
+        res.status(200).send(true);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 // Update The user data
 userRoutes.put('/api/users/:id', upload.single('image'), async (req, res) => {
     try {
@@ -86,7 +98,7 @@ userRoutes.put('/api/users/:id', upload.single('image'), async (req, res) => {
             image: photo
         };
 
-        const user = await USER.findByIdAndUpdate(id, updatedData, { new: true }) || await DiscordUser.findByIdAndUpdate(id, updatedData, { new: true }) ||  await GoogleUser.findByIdAndUpdate(id, updatedData, { new: true });;
+        const user = await USER.findByIdAndUpdate(id, updatedData, { new: true }) || await DiscordUser.findByIdAndUpdate(id, updatedData, { new: true }) ||  await GoogleUser.findByIdAndUpdate(id, updatedData, { new: true });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -100,9 +112,10 @@ userRoutes.put('/api/users/:id', upload.single('image'), async (req, res) => {
 
 // Login user locally
 userRoutes.post('/api/users/login', passport.authenticate('local', {
-    failureRedirect: '/login'
+    failureRedirect: '/api/users/register'
 }), async(req, res) => {
-    res.status(201).json(req.user)
+    res.status(200).json(req.user);
+
 });
 
 // Login user discord
@@ -115,6 +128,7 @@ userRoutes.get('/api/users/google', passport.authenticate('google'), (req, res) 
         res.status(200).json(req.user)
     });
   
+
 
 module.exports = userRoutes
 
