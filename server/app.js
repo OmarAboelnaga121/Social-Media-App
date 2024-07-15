@@ -7,6 +7,7 @@ const passport = require('passport');
 const session = require('express-session');
 const userRoutes = require('./routes/userRoutes');
 const userFetchs = require('./routes/userFetchs');
+const contactRoutes = require('./routes/contactRoutes');
 const postRoutes = require('./routes/postRoutes');
 const localPassport = require('./stratgies/local-stratgy');
 const discordPassport = require('./stratgies/discord-stratgy');
@@ -22,20 +23,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
+// Session Config
 app.use(session({
     secret: 'ljyhgsduoriyfuyoawisguyorhas', 
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 * 60 } 
 }));
+
+//Passport Config
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile)); 
 
+//The Routes
 app.use(postRoutes);
 app.use(userRoutes);
 app.use(userFetchs);
+app.use(contactRoutes);
 
 // The port which the application will listen on
 app.listen(PORT, () => {

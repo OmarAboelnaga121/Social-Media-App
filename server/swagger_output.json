@@ -418,6 +418,42 @@
           }
         }
       }
+    },
+    "/send-email": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "example": "any"
+                },
+                "to": {
+                  "example": "any"
+                },
+                "subject": {
+                  "example": "any"
+                },
+                "text": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
