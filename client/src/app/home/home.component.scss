@@ -1,0 +1,138 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(99vh - 60px);
+    height: 100%;
+    .mainContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        width: 90%;
+    }
+    .textContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        .logo{
+            color: var(--secondry-color);
+            font-weight: 200;
+            font-size: 50px;
+            a{
+                color: var(--secondry-color);
+                display: flex;
+                flex-direction: column;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+            span:nth-child(2){
+                color: var(--primary-color);
+
+            }
+        }
+        p{
+            font-size: 25px;
+            font-weight: 200;
+            margin-top: 10px;
+        }
+    }
+    .formContainer{
+        flex: 1;
+        width: 80%;
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        .inputContainer{
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            label{
+                font-size: 20px;
+            }
+            input{
+                height: 30px;
+                padding: 12px;
+            }
+        }
+        .button{
+            width: 80% !important;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            width: 80%;
+            max-width: 600px;
+            .line {
+                border: none;
+                border-top: 2px solid #666;
+                margin: 0;
+                flex-grow: 1;
+            }
+            
+            .or {
+                padding: 0 10px;
+                color: #666;
+                white-space: nowrap;
+            }
+        }
+        .socialMediaButtons{
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            gap: 10%;
+            .google, .discord{
+                border: 0;
+                color: var(--white-color);
+                padding: 10px;
+                position: relative;
+                font-size: 18px;
+                cursor: pointer;
+                width: 45%;
+                i{
+                    position: absolute;
+                    top: 12px;
+                    left: 11px;
+                    font-size: 20px;
+                }
+            }
+            .google{
+                background-color: var(--google-button-color);
+            }
+            .discord{
+                background-color: var(--discord-button-color);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .mainContainer{
+        flex-direction: column !important;
+        padding-top: 25px;
+        justify-content: center;
+        .textContainer{
+            justify-content: center;
+        }
+        .formContainer{
+            .inputContainer{
+                width: 100%;
+            }
+            .button{
+                width: 100% !important;
+            }
+            .divider{
+                width: 100%;
+            }
+        }
+    }
+}

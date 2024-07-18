@@ -6,6 +6,7 @@ const DiscordUser = require('../db/models/discordUser')
 const GoogleUser = require('../db/models/googleUser');
 const upload = require('../middlewares/upload');
 const bcrypt = require('bcrypt')
+const { checkAuth } = require('../utils/utils')
 
 userRoutes.get('/api/users', async(req, res) => {
     try {
@@ -67,7 +68,7 @@ userRoutes.post('/api/users/register', upload.single('image'), async(req, res) =
 userRoutes.get('/api/auth-status', (req, res) => {
     try {
         console.log('Checking authentication status...');
-        if (!req.user) {
+        if (!req.isAuthenticated()) {
             console.log('User is not authenticated.');
             res.send(false);
         }else{
@@ -117,7 +118,6 @@ userRoutes.post('/api/users/login', passport.authenticate('local', {
     failureRedirect: '/api/users/register'
 }), async(req, res) => {
     res.status(200).json(req.user);
-
 });
 
 // Login user discord
@@ -127,15 +127,7 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 
 // Login user google
 userRoutes.get('/api/users/google', passport.authenticate('google'), (req, res) => {
-        res.status(200).json(req.user)
-    });
-  
-
+    res.status(200).json(req.user)
+});
 
 module.exports = userRoutes
-
-// Dummy data
-// { 
-//     "mail": "anson@123", 
-//     "password": "hello123" 
-// }

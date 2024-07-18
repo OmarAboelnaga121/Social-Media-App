@@ -13,13 +13,41 @@ header{
             color: var(--secondry-color);
             font-weight: 200;
             font-size: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 0; 
-            margin: 0;
-            padding: 0;
-            span{
+            a{
+                color: var(--secondry-color);
+                display: flex;
+                flex-direction: column;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+            span:nth-child(2){
                 color: var(--primary-color);
+
+            }
+        }
+        ul{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            margin-left: 5rem;
+            li{
+                a{
+                    color: var(--secondry-color);
+                }
+            }
+        }
+
+        .buttonContainer{
+            display: flex;
+            gap: 10px;
+            button{
+                padding: 8px 15px;
+                font-size: 18px;
             }
         }
     }

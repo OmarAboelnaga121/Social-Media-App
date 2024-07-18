@@ -1,19 +1,20 @@
 <header>
+    <!-- The header for the not authanticated users -->
     @if(Authanticated == false){
         <div class="unAuthanticatedContainer">
-            <h2 class="logo">Connect <span>Verse</span></h2>
+            <h2 class="logo"><a routerLink="/"><span class="first-word">Connect</span><span class="second-word">Verse</span></a></h2>
             <ul>
-                <li><a>About Us</a></li>
-                <li><a>Contect Us</a></li>
+                <li><a routerLink="/about" routerLinkActive="active">About Us</a></li>
+                <li><a routerLink="/contact" routerLinkActive="active">Contect Us</a></li>
             </ul>
             <div class="buttonContainer">
                 <button class="secondryButton">Log in</button>
-                <button class="primaryButton">Regester</button>
+                <button class="primaryButton">Register</button>
             </div>
-
         </div>
     }
 
+    <!-- The header for the authanticated users -->
     @if(Authanticated == true){
         <div class="authanticated">
             <p>authanticated</p>

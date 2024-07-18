@@ -11,11 +11,11 @@ const transporter = nodemailer.createTransport({
 });
   
 contactRoutes.post('/send-email', (req, res) => {
-    const { from, to, subject, text } = req.body;
+    const { from, subject, text } = req.body;
 
     const mailOptions = {
-        from: process.env.GMAIL_USER,
-        to: to,
+        from: from,
+        to: process.env.GMAIL_USER,
         subject: subject,
         text: text,
         replyTo: from,

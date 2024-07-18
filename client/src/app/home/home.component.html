@@ -1,0 +1,45 @@
+<section class="container">
+    <div class="mainContainer">
+        <div class="textContainer">
+            <h2 class="logo"><a routerLink="/"><span class="first-word">Connect</span><span class="second-word">Verse</span></a></h2>
+            <p>Communicate with your<br>friends without<br>limitations</p>
+        </div>
+        <div class="formContainer">
+            <div class="inputContainer">
+                <label for="mail">Mail</label>
+                <input 
+                    pInputText 
+                    id="mail" 
+                    aria-describedby="mail-help" 
+                    #mailInput
+                    />
+                <small id="mail-help">
+                    Enter your mail.
+                </small>
+            </div>
+            <div class="inputContainer">
+                <label for="password">Password</label>
+                <input 
+                    pInputText 
+                    id="password" 
+                    aria-describedby="password-help" 
+                    #passwordInput
+                    />
+                <small id="password-help">
+                    Enter your password, It have to be more than 6 characters.
+                </small>
+            </div>
+            <button class="primaryButton button" (click)="loginUserLocally(mailInput.value, passwordInput.value)">Log In</button>
+            <div class="divider">
+                <hr class="line">
+                <span class="or">or</span>
+                <hr class="line">
+            </div>
+            <div class="socialMediaButtons">
+                <button class="google" (click)="loginGoogle()"><i class="pi pi-google"></i>Google</button>
+                <button class="discord" (click)="loginDiscord()"><i class="pi pi-discord"></i>Discord</button>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -19,12 +19,11 @@ const cors = require('cors');
 // Required to get the data from ==> .env
 require('dotenv').config();
 
-const corsOptions = {
+app.use(cors({
     origin: 'http://localhost:4200', 
-    optionsSuccessStatus: 200 
-  };
-  
-  app.use(cors(corsOptions));
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true 
+  }));
 
 // Middlewares
 app.use(express.json());
@@ -35,8 +34,8 @@ app.use('/uploads', express.static('uploads'));
 app.use(session({
     secret: 'ljyhgsduoriyfuyoawisguyorhas', 
     resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 * 60 } 
+    saveUninitialized: false,
+    cookie: { secure: false } 
 }));
 
 //Passport Config
