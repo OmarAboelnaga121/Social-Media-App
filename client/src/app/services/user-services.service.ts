@@ -37,4 +37,10 @@ export class UserServicesService {
     return this.http.post(`http://localhost:3000/api/users/login`, {mail, password});
   }
 
+  sendContactData(name : string, mail : string, message : string) : Observable<any>{
+    console.log(message);
+    
+    return this.http.post('http://localhost:3000/send-email', {name, mail, message})
+  }
+
 }

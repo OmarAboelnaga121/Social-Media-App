@@ -11,21 +11,21 @@ const transporter = nodemailer.createTransport({
 });
   
 contactRoutes.post('/send-email', (req, res) => {
-    const { from, subject, text } = req.body;
+    const { from, name, message } = req.body;
 
     const mailOptions = {
         from: from,
         to: process.env.GMAIL_USER,
-        subject: subject,
-        text: text,
-        replyTo: from,
-    };
+        subject: 'Connect Verse Request',
+        text: `${name}: ${message}`,
+        replyTo: from
+      };
     
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
         return res.status(500).send(error.toString());
         }
-        res.status(200).send('Email sent: ' + info.response);
+        res.status(200).json('Email sent');
     });
   });
 

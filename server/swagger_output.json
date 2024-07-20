@@ -489,10 +489,10 @@
                 "from": {
                   "example": "any"
                 },
-                "subject": {
+                "name": {
                   "example": "any"
                 },
-                "text": {
+                "message": {
                   "example": "any"
                 }
               }

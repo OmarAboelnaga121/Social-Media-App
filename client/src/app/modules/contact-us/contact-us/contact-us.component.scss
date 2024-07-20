@@ -1,0 +1,124 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(99vh - 60px);
+    height: 100%;
+    .mainContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        width: 90%;
+    }
+    .textContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        .logo{
+            color: var(--secondry-color);
+            font-weight: 200;
+            font-size: 50px;
+            a{
+                color: var(--secondry-color);
+                display: flex;
+                flex-direction: column;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+            span:nth-child(2){
+                color: var(--primary-color);
+
+            }
+        }
+        p{
+            font-size: 25px;
+            font-weight: 200;
+            margin-top: 10px;
+        }
+    }
+    .errorContainer{
+        background-color: var(--danger-red-color);
+        width: 80%;
+        text-align: center;
+        color: var(--white-color);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .formContainer{
+        flex: 1;
+        width: 80%;
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        .text{
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            h2{
+                font-size: 2rem;
+                font-weight: 500;
+            }
+            a{
+                color: #5D9AD3;
+            }
+        }
+        .inputContainer{
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            label{
+                font-size: 20px;
+            }
+            input{
+                height: 30px;
+                padding: 12px;
+            }
+        }
+        .textBoxContainer{
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            label{
+                font-size: 20px;
+            }
+            textarea{
+                padding: 5px;
+                height: 150px !important;
+            }
+        }
+        .button{
+            width: 80% !important;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .container{
+        gap:0;
+        .mainContainer{
+            flex-direction: column !important;
+            padding-top: 25px;
+            gap:0 !important;
+            .textContainer{
+                padding-left: 10%;
+            }
+            .formContainer{
+                .inputContainer, .button, .divider, .text{
+                    width: 100% !important;
+                }
+            }
+        }
+    }
+    
+}

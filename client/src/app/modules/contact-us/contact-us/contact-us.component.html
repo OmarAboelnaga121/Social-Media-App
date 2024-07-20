@@ -1,1 +1,54 @@
-<p>contact-us works!</p>
+<p-toast />
+<section class="container">
+    <div class="mainContainer">
+        <div class="textContainer">
+            <h2 class="logo"><a routerLink="/"><span class="first-word">Connect</span><span class="second-word">Verse</span></a></h2>
+            <p>Communicate with your<br>friends without<br>limitations</p>
+        </div>
+        <div class="formContainer">
+            <div class="text">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="inputContainer">
+                <label for="name">Your Name</label>
+                <input 
+                    pInputText 
+                    id="name" 
+                    aria-describedby="name-help" 
+                    #nameInput
+                    />
+                <small id="name-help">
+                    Enter your Name.
+                </small>
+            </div>
+            <div class="inputContainer">
+                <label for="mail">Your Mail</label>
+                <input 
+                    pInputText 
+                    id="mail" 
+                    aria-describedby="mail-help" 
+                    value=""
+                    #mailInput
+                    />
+                <small id="mail-help">
+                    Enter your mail.
+                </small>
+            </div>
+            <div class="textBoxContainer">
+                <label for="message">Message</label>
+                <textarea 
+                [autoResize]="true"
+                id="message" 
+                pInputTextarea 
+                #messageInput
+                >
+                </textarea>
+                <small id="password-help">
+                    Enter your Message.
+                </small>
+            </div>
+            <button class="primaryButton button" (click)="sendDataForContact(nameInput.value, mailInput.value, messageInput.value)">Send Message</button>
+
+        </div>
+    </div>
+</section>
