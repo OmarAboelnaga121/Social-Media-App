@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await User.findById(id);
+        const user = await DiscordUser.findById(id);
         done(null, user);
     } catch (error) {
         done(error, null);
@@ -23,6 +23,7 @@ passport.use(new discordPassport({
 }, async(accessToken, refreshToken, profile, done) => {
     try {
         const user = await DiscordUser.findOne({discordId: profile.id})
+        console.log(profile);
 
         if(!user){
             await DiscordUser.create({

@@ -20,10 +20,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 app.use(cors({
-    origin: 'http://localhost:4200', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true 
-  }));
+    origin: 'http://localhost:4200',
+    credentials: true
+}));
 
 // Middlewares
 app.use(express.json());

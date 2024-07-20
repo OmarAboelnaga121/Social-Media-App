@@ -2,87 +2,48 @@ import { Component } from '@angular/core';
 import { UserServicesService } from '../services/user-services.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [InputTextModule, FloatLabelModule],
+  imports: [InputTextModule, FloatLabelModule, RouterModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  constructor(private httpClient : UserServicesService, private route : Router, private cookieService: CookieService){}
+  constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
 
   // Variables
-  errorMsg : string = ''
+  errorMessage : string = ''
   cookieId : string = ''
-
-  // On Opning the page
-  ngOnInit(): void{
-    this.checkAuth()
-  }
 
   // Fun for user to login locally
   loginUserLocally(mail : string, password : string){
 
-    if(! mail.includes('@')){
-      this.errorMsg = 'Mail Have To Contain @'
+    if(!mail.includes('@')){
+      this.errorMessage = 'Mail Have To Contain @'
     }
 
     this.httpClient.loginUserLocally(mail, password).subscribe(
       (res) => {
         this.cookieService.set('_id', res._id)
-        this.checkAuth()
       },
       (err) => {
-        this.errorMsg = err
-        console.log(err)
-      },
+        this.errorMessage = 'Mail or Password is invalid';
+      }
     )
   }
-
-  loginGoogle(){
-    this.httpClient.loginUserGoogle().subscribe(
-      (res) => {
-        console.log(res);
-        // this.cookieService.set('_id', res._id)
-        // this.checkAuth()
-      },
-      (err) => {
-        this.errorMsg = err
-        console.log(err)
-    },)
+  loginGoogle() {
+    this.httpClient.LoginUserGoogle()
   }
+
   loginDiscord(){
-    this.httpClient.loginUserDiscord().subscribe(
-      (res) => {
-        console.log(res);
-        
-        // this.cookieService.set('_id', res._id)
-        // this.checkAuth()
-      },
-      (err) => {
-        this.errorMsg = err
-        console.log(err)
-    },)
+    this.httpClient.LoginUserDiscord()
   }
 
-  //Check if user is logged in or not 
-  checkAuth(){
-    this.cookieId = this.cookieService.get('_id');    
-
-    if(this.cookieId == ''){
-      return;
-    }
-    this.httpClient.getUser(this.cookieId).subscribe(
-      (res) => {
-        this.route.navigate(['/dashboard'])
-      },
-      (err) => {
-        console.log(err)
-      },
-  )}
+  
 }

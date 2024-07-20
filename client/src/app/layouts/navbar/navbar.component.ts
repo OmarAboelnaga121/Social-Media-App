@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { UserServicesService } from '../../services/user-services.service';
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [InputTextModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -20,24 +21,31 @@ export class NavbarComponent {
   cookieId : string = ''
 
 
-  constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : RouterModule){}
-
+  constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
+  
   checkAuth(){
-    this.cookieId = this.cookieService.get('_id');
+    this.cookieId = this.cookieService.get('_id');    
 
-    if(!this.cookieId || this.cookieId == ''){
+    if(this.cookieId == '' || !this.cookieId){
       this.Authanticated = false
       return;
     }
-
+    // Check In USER DataBase
     this.httpClient.getUser(this.cookieId).subscribe(
-      (res) => {
-        this.Authanticated = true
-        console.log(res)
+      () => {
+        this.Authanticated = true;
       },
-      (err) => {
-        console.log(err)
-      },
-  )}
+      () => {
+        this.httpClient.getUserProvider(this.cookieId).subscribe(
+          () => {
+            this.Authanticated = true;
+          },
+          () => {
+            this.Authanticated = false;
+          }
+        );
+      }
+    );
+}
 
 }

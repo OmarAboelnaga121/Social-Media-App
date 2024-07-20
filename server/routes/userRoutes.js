@@ -34,7 +34,7 @@ userRoutes.get('/api/users', async(req, res) => {
 userRoutes.post('/api/users/register', upload.single('image'), async(req, res) => {
     try {
         const { displayName, mail, password } = req.body;
-        const photo = req.file ? `http://localhost:3001/${req.file.path}` : '';
+        const photo = req.file ? `http://localhost:3000/${req.file.path}` : '';
         
         // Validation
         if (!displayName || displayName.length <= 2) {
@@ -47,19 +47,25 @@ userRoutes.post('/api/users/register', upload.single('image'), async(req, res) =
             return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10)
+        const checkMail = await USER.findOne({mail})
+        if(checkMail){
+            return res.status(400).json({ message: "The Mail is Already sign in" });
+        }else{
+            const hashedPassword = await bcrypt.hash(password, 10)
     
-        // Create and save user
-        const user = new USER({
-            displayName,
-            mail,
-            password: hashedPassword,
-            photo
-        });
-        await user.save();
-    
-        // Respond with the created user
-        res.status(201).json(user);
+            // Create and save user
+            const user = new USER({
+                displayName,
+                mail,
+                password: hashedPassword,
+                photo
+            });
+            await user.save();
+        
+            // Respond with the created user
+            res.status(201).json(user);
+        }
+
     } catch (error) {
         res.status(500).json(error);
     }
@@ -125,9 +131,25 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
     res.status(200).json(req.user)
 });
 
+userRoutes.get('/auth/discord/callback',
+    passport.authenticate('discord', { failureRedirect: '/login' }),
+    (req, res) => {
+      res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
+      res.redirect('http://localhost:4200/dashboard');
+    }
+  );
+
 // Login user google
-userRoutes.get('/api/users/google', passport.authenticate('google'), (req, res) => {
-    res.status(200).json(req.user)
-});
+userRoutes.get('/api/users/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+userRoutes.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
+    res.redirect('http://localhost:4200');
+  }
+);
 
 module.exports = userRoutes

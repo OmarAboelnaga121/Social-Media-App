@@ -5,6 +5,13 @@
             <p>Communicate with your<br>friends without<br>limitations</p>
         </div>
         <div class="formContainer">
+            <div class="text">
+                <h2>Login</h2>
+                <p>Don’t Have Account? <a routerLink="/register">Register</a></p>
+            </div>
+            <div class="errorContainer" *ngIf="errorMessage">
+                <p>{{errorMessage}}</p>
+            </div>
             <div class="inputContainer">
                 <label for="mail">Mail</label>
                 <input 

@@ -20,7 +20,7 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new googlePassport({
     clientID: process.env.GoogleClientId,
     clientSecret: process.env.GoogleClientPassword,
-    callbackURL: process.env.CallBackURL,
+    callbackURL: process.env.CallBackURLGoogle,
     scope:['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
 }, async(accessToken, refreshToken, profile, done) => {
     try {
@@ -36,7 +36,7 @@ passport.use(new googlePassport({
             })
         }
 
-        done(null, user)
+        done(null, profile)
     } catch (error) {
         done(error, null)
     }

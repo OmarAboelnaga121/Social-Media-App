@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,23 @@ export class UserServicesService {
 
     return data
   }
+  getUserProvider(userId : string) : Observable<any>{
+    let data = this.http.get<any>(`http://localhost:3000/api/userProviders/${userId}`)
 
-  registerUser(displayName : string, mail : string, password : string): Observable<any> {
-    return this.http.post(`http://localhost:3000/api/users/register`, {displayName, mail, password});
+    return data
   }
-  loginUserDiscord(): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/users/discord`, { withCredentials: true });
+
+  registerUser(formData : any): Observable<any> {
+    
+    return this.http.post(`http://localhost:3000/api/users/register`, formData);
   }
-  loginUserGoogle(): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/users/google`, { withCredentials: true });
+  
+  LoginUserGoogle() {
+    window.location.href = "http://localhost:3000/api/users/google"
+  }
+
+  LoginUserDiscord() {
+    window.location.href = "http://localhost:3000/api/users/discord"
   }
 
   loginUserLocally(mail : string, password : string): Observable<any> {
