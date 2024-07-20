@@ -73,6 +73,19 @@
                 color: #5D9AD3;
             }
         }
+        .file{
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            width: 80%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
         .inputContainer{
             display: flex;
             flex-direction: column;
@@ -136,24 +149,22 @@
     }
 }
 
-@media screen and (max-width: 578px) {
-    .mainContainer{
-        flex-direction: column !important;
-        padding-top: 25px;
-        justify-content: center;
-        .textContainer{
-            justify-content: center;
-        }
-        .formContainer{
-            .inputContainer{
-                width: 100%;
+@media screen and (max-width: 700px) {
+    .container{
+        gap:0;
+        .mainContainer{
+            flex-direction: column !important;
+            padding-top: 25px;
+            gap:0 !important;
+            .textContainer{
+                padding-left: 10%;
             }
-            .button{
-                width: 100% !important;
-            }
-            .divider{
-                width: 100%;
+            .formContainer{
+                .inputContainer, .file, .button, .divider, .text{
+                    width: 100% !important;
+                }
             }
         }
     }
+    
 }
