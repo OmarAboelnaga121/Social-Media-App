@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UserServicesService } from '../../services/user-services.service';
 import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -19,10 +19,15 @@ export class NavbarComponent {
 
   Authanticated ! : boolean 
   cookieId : string = ''
+  openMenu : boolean = false
 
 
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
   
+  openMenuFun(){
+    this.openMenu = !this.openMenu
+  }
+
   checkAuth(){
     this.cookieId = this.cookieService.get('_id');    
 

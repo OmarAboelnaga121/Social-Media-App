@@ -9,6 +9,26 @@ header{
         justify-content: space-between;
         align-items: center;
         width: 90%;
+        .logo{
+            color: var(--secondry-color);
+            font-weight: 200;
+            font-size: 30px;
+            z-index: 999;
+            a{
+                color: var(--secondry-color);
+                display: flex;
+                flex-direction: column;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+            span:nth-child(2){
+                color: var(--primary-color);
+        
+            }
+        }
         ul{
             display: flex;
             justify-content: center;
@@ -22,10 +42,23 @@ header{
                 }
             }
         }
-
+        .displayMobile{
+            display: none;
+            padding: 5px;
+            z-index: 999;
+            border-radius: 5px;
+            border: 0;
+            font-size: 20px !important;
+            background-color: transparent;
+            color: var(--whaite-color) !important;
+            i{
+                font-size: 25px;
+            }
+        }
         .buttonContainer{
             display: flex;
             gap: 10px;
+            
             button{
                 padding: 8px 15px;
                 font-size: 18px;
@@ -39,22 +72,61 @@ header{
         width: 90%;
     }
 }
-.logo{
-    color: var(--secondry-color);
-    font-weight: 200;
-    font-size: 30px;
-    a{
-        color: var(--secondry-color);
-        display: flex;
-        flex-direction: column;
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        padding: 0;
-        line-height: 1;
+.openMenu {
+    top: 243px !important;
+}
+.openMenuBtn {
+    top: 407px !important;
+}
+@media screen and (max-width: 700px) {
+    .logo{
+        margin-left: 10px;
+        margin-top: 10px;
     }
-    span:nth-child(2){
-        color: var(--primary-color);
-
+    header{
+        .unAuthanticatedContainer{
+            position: relative;
+            left: 0;
+            top: 0px;
+            right: 0;
+            display: flex;
+            width: 100%;
+            height: 550px;
+            .displayMobile{
+                display: block;
+                margin-right: 5px;
+            }
+            ul{
+                position: absolute;
+                background-color:#cecbcb;
+                top: -243px;
+                justify-content: center;
+                right: 0;
+                align-items: center;
+                height: 241px;
+                width: 100%;
+                padding: 7px 0;
+                display: flex;
+                flex-direction: column;
+                li{
+                    font-size: 25px;
+                }
+            }
+            .buttonContainer{
+                align-items: center;
+                position: absolute;
+                right: 0;
+                flex-direction: column;
+                background-color: #cecbcb;
+                width: 100%;
+                justify-content: center;
+                top: -407px;
+                padding-bottom: 10px;
+                button{
+                    width: 30%;
+                }
+            }
+        }
     }
+    
 }

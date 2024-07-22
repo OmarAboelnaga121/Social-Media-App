@@ -31,6 +31,8 @@ export class HomeComponent {
     this.httpClient.loginUserLocally(mail, password).subscribe(
       (res) => {
         this.cookieService.set('_id', res._id)
+        this.route.navigate(['/dashboard'])
+        window.location.reload()
       },
       (err) => {
         this.errorMessage = 'Mail or Password is invalid';
