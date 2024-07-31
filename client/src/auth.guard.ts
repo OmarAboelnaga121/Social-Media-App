@@ -37,6 +37,10 @@ export class AuthGuardDashboard implements CanActivate {
       );
   }  
 }
+
+@Injectable({
+  providedIn: 'root'
+})
 // this canActive is made for unauth
 export class AuthGuardForUnAuth implements CanActivate {
 

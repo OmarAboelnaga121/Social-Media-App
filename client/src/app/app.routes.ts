@@ -28,7 +28,7 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/about/about.module').then(m => m.AboutModule),
     },
     // {
-    //     path: '**', // Wildcard route for a 404 page
+    //     path: '**',
     //     loadChildren: () => import('./modules/not-found/not-found.module').then(m => m.NotFoundModule)
     // }
 ];

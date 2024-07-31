@@ -69,4 +69,7 @@ export class PostsComponent {
   makeReport(){
     this.popUpReportComponent.visible = true
   }
+
+  // Fun to add or remove like
+  addLike(){}
 }

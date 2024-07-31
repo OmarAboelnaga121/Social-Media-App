@@ -14,7 +14,7 @@
                 <img [src]="post.photo" alt="post Image" class="postImage">
             </div>
             <div class="controllContainers">
-                <button class="secondryButton"><i class="pi pi-heart"></i>Like</button>
+                <button class="secondryButton" (click)="addLike()"><i class="pi pi-heart"></i>Like</button>
                 <button class="secondryButton"><i class="pi pi-comment"></i>Comment</button>
             </div>
         </div>
