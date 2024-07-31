@@ -12,8 +12,9 @@ import { filter } from 'rxjs/operators';
 })
 export class FooterComponent {
   constructor(private route : Router){}
-  remveFooterForDashboard : boolean = true
+  remveFooterForDashboard : boolean = false
 
+  // To check if the user is auth or not if it is auth it does it do not appear if it is not auth it appears
   ngOnInit() {
     this.route.events
       .pipe(filter(event => event instanceof NavigationEnd))

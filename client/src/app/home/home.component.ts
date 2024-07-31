@@ -39,10 +39,13 @@ export class HomeComponent {
       }
     )
   }
+
+  // Fun to log the user by google
   loginGoogle() {
     this.httpClient.LoginUserGoogle()
   }
 
+    // Fun to log the user by discord
   loginDiscord(){
     this.httpClient.LoginUserDiscord()
   }

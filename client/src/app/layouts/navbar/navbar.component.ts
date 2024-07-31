@@ -16,13 +16,14 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent {
 
-
+  // on initialize the project
   ngOnInit(): void{
     this.checkAuth()
     
     this.getAuthUser()
   }
 
+  // Variacbles
   Authanticated ! : boolean 
   cookieId : string = ''
   openMenu : boolean = false
@@ -32,10 +33,12 @@ export class NavbarComponent {
 
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
   
+  // Function to open the menu for mobile
   openMenuFun(){
     this.openMenu = !this.openMenu
   }
 
+  // Fun to check Auth
   checkAuth(){
     this.cookieId = this.cookieService.get('_id');    
 
@@ -61,6 +64,7 @@ export class NavbarComponent {
     );
   }
 
+  // Fun to get the data of the authorized user
   getAuthUser(){
     this.cookieId = this.cookieService.get('_id');    
 

@@ -17,6 +17,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
   styleUrl: './pop-up-report.component.scss'
 })
 export class PopUpReportComponent {
+  // Variables
   visible: boolean = false;
   @Input() reportedPostId ! : string;
   @Output() reportData = new EventEmitter<any>();
@@ -24,6 +25,7 @@ export class PopUpReportComponent {
 
   constructor(private confirmationService: ConfirmationService,private cookieService: CookieService, private messageService: MessageService, private postService : PostServicesService){}
 
+  // Fun to make a reporte
   makeReport(resportResoan : string, event: Event){
     const reporterId : string = this.cookieService.get('_id')
     this.confirmationService.confirm({

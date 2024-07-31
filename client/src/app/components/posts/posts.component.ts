@@ -20,16 +20,18 @@ import { PopUpReportComponent } from "../pop-up-report/pop-up-report.component";
 export class PostsComponent {
   constructor(private postService : PostServicesService, private userService : UserServicesService){}
 
+  // View child for children to controll on them
   @ViewChild(PopUpReportComponent) popUpReportComponent!: PopUpReportComponent;
 
-
+  // Variables
   posts : any = []
-  users : any = []
 
+  // On Initialize the page
   ngOnInit(): void{
     this.getPosts();
   }
 
+  // Fun to get all posts
   getPosts(){
     this.postService.getPosts().subscribe(
       (data)=>{
@@ -41,6 +43,8 @@ export class PostsComponent {
         console.log(error);
       }
   )}
+
+  //Fun to get the user's posts 
   getUserPost(post : any){
       this.userService.getUser(post.CreatorId).subscribe(
         (data)=>{
@@ -61,7 +65,7 @@ export class PostsComponent {
         }
   )}
     
-
+  // Fun to open the pop up of the report pop up
   makeReport(){
     this.popUpReportComponent.visible = true
   }

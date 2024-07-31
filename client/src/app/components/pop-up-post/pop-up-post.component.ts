@@ -18,11 +18,13 @@ import { ToastModule } from 'primeng/toast';
 })
 export class PopUpPostComponent {
   constructor(private cookieService: CookieService, private messageService: MessageService){}
+
+  // Variables
   visible: boolean = false;
   @Output() formDataOutput = new EventEmitter<any>();
   errorMessage : string = ""
 
-
+  // Fun to make the post
   makePost(description : string, fileInput: HTMLInputElement){
     const image = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
 

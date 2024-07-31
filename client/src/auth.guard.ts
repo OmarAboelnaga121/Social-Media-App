@@ -7,6 +7,7 @@ import { UserServicesService } from './app/services/user-services.service';
 @Injectable({
   providedIn: 'root'
 })
+ // this canActive is made for auth
 export class AuthGuardDashboard implements CanActivate {
 
   constructor(private httpClient: UserServicesService, private router: Router, private cookieService: CookieService) {}
@@ -36,14 +37,12 @@ export class AuthGuardDashboard implements CanActivate {
       );
   }  
 }
-
-@Injectable({
-  providedIn: 'root'
-})
+// this canActive is made for unauth
 export class AuthGuardForUnAuth implements CanActivate {
 
   constructor(private httpClient: UserServicesService, private router: Router, private cookieService: CookieService) {}
 
+  // this canActive is made for unauth
   canActivate(): Observable<boolean> {
     const userCookie = this.cookieService.get('_id');
 

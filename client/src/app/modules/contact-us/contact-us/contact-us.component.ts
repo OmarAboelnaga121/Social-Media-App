@@ -10,7 +10,7 @@ export class ContactUsComponent {
 
   constructor(private httpClient : UserServicesService, private messageService: MessageService){}
 
-
+  // Fun to send the message to backend handler for contact
   sendDataForContact(name : string, mail : string, message : string){
     console.log(message);
     

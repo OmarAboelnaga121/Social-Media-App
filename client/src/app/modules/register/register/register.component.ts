@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
 
+  // Variables
   errorMessage : string = ''
 
+  // fun to register account for user
   registerUser(displayName : string, mail : string, password : string, fileInput: HTMLInputElement){
     const image = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
 
@@ -35,10 +37,12 @@ export class RegisterComponent {
     )
   }
   
+  // fun to register the user by google
   loginGoogle() {
     this.httpClient.LoginUserGoogle()
   }
 
+  // fun to register the user by discord
   loginDiscord(){
     this.httpClient.LoginUserDiscord()
   }

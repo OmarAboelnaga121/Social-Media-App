@@ -21,18 +21,21 @@ export class DashboardComponent {
     });
 
   }
+  // Variables
   cookieId : string = ''
   user : any = []
   showPosts : boolean = true
 
+  // View Childs to get access to
   @ViewChild(PopUpPostComponent) popUpPostComponent!: PopUpPostComponent;
   @ViewChild(PostsComponent) postsComponent!: PostsComponent;
 
-  
+  // On initialize the page
   ngOnInit(): void{
     this.getUser();
   }
 
+  // Fun to get user data
   getUser(){
       this.cookieId = this.cookieService.get('_id');    
 
@@ -55,6 +58,7 @@ export class DashboardComponent {
         }
   )}
 
+  // Fun to make the post
   createPost(data : any){
     this.postService.createPost(data).subscribe(
       (res)=>{
@@ -69,12 +73,14 @@ export class DashboardComponent {
     )
   }
 
+  // fun which it takes the data of the pop up 
   formDataOutput(data : any){
     console.log(data);
     
     this.createPost(data)
   }
 
+  // fun to open the pop up 
   openPopUp(){
     if (this.popUpPostComponent) {
       this.popUpPostComponent.visible = true;
