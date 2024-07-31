@@ -1,0 +1,25 @@
+<section class="section">
+    @for (post of posts; track post) {
+        <div class="postContainer" *ngIf="post">
+            <div class="topOfPost">
+                <div class="profileViewer">
+                    <img [src]="post.userDetails.photo" alt="userProfilePic" *ngIf="post.userDetails && post.userDetails.photo">
+                    <p *ngIf="post.userDetails">{{post.userDetails.displayName}}</p>
+                    </div>
+                    <button class="primaryButton" (click)="makeReport()">Report</button>
+
+            </div>
+            <h3>{{post.Description}}</h3>
+            <div class="imgConatiner" *ngIf="post.photo">
+                <img [src]="post.photo" alt="post Image" class="postImage">
+            </div>
+            <div class="controllContainers">
+                <button class="secondryButton"><i class="pi pi-heart"></i>Like</button>
+                <button class="secondryButton"><i class="pi pi-comment"></i>Comment</button>
+            </div>
+        </div>
+        <app-pop-up-report [reportedPostId]="post._id"></app-pop-up-report>
+    }
+
+    <p>You Caugth All Posts</p>
+</section>

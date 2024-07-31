@@ -7,22 +7,23 @@ const GoogleUser = require('../db/models/googleUser')
 const upload = require('../middlewares/upload');
 
 //Get All posts
-postRoutes.get('/api/posts', async(req, res) => {
+postRoutes.get('/api/posts', async (req, res) => {
     try {
-        const users = await POST.find();
-        res.status(200).json(users)
+        const posts = await POST.aggregate([{ $sample: { size: 10 } }]);
+        res.status(200).json(posts);
     } catch (error) {
-        res.status(500).json({error});
+        res.status(500).json({ error });
     }
 });
+
 
 // Post post
 postRoutes.post("/api/posts", upload.single('image'), async(req, res) => {
     try {
         const { CreatorId, Description } = req.body
-        const photo = req.file ? req.file.path : '';
+        const photo = req.file ? `http://localhost:3000/${req.file.path}` : '';
 
-        const checkUser = await USER.findById(CreatorId);
+        const checkUser = await GoogleUser.findOne({googleId: CreatorId}) || await USER.findById(CreatorId) || await GoogleUser.findById(CreatorId) || await DiscordUser.findById(CreatorId);
 
         if(!CreatorId || !checkUser) return res.status(404).json({msg: "User does not exist."})
         
@@ -33,7 +34,11 @@ postRoutes.post("/api/posts", upload.single('image'), async(req, res) => {
             Description,
             photo
         });
+
+        checkUser.postNumber += 1;
+
         await post.save();
+        await checkUser.save();
         res.status(201).json(post);
     } catch (error) {
         res.status(500).json({error});
@@ -55,28 +60,24 @@ postRoutes.delete("/api/posts/:id", async(req, res) => {
 postRoutes.put("/api/posts/addLike/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const post = await POST.findById(id)
-        if(!post) return res.status(404).json({msg: "Post not found"})
+        const { userId } = req.body;
+        const post = await POST.findById(id);
+        const checkUser = await GoogleUser.findOne({googleId: userId}) || await USER.findById(userId) || await GoogleUser.findById(userId) || await DiscordUser.findById(userId);
         
-        post.Likes += 1;
-    
-        await post.save()
-        res.status(200).json({post});
-    } catch (error) {
-        res.status(500).json({error});
-    }
-})
+        if (!post) return res.status(404).json({ msg: "Post not found" });
+        if (!checkUser) return res.status(404).json({ msg: "User not found" });
 
-//Remove the like from the post
-postRoutes.put("/api/posts/removeLike/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        const post = await POST.findById(id)
-        if(!post) return res.status(404).json({msg: "Post not found"})
-        
-        post.Likes -= 1;
+        const hasLiked = post.LikedBy.includes(userId);
+        if (hasLiked) {
+            post.LikedBy = post.LikedBy.filter(user => user !== userId);
+            post.Likes -= 1;
+        } else {
+            post.LikedBy.push(userId);
+            post.Likes += 1;
+        }
 
-        await post.save()
+        await post.save();
+
         res.status(200).json({post});
     } catch (error) {
         res.status(500).json({error});
@@ -84,35 +85,42 @@ postRoutes.put("/api/posts/removeLike/:id", async(req, res) => {
 })
 
 // Add report to a post
-postRoutes.put("/api/posts/addReport/:id", async(req, res) => {
+postRoutes.put("/api/posts/addReport/:id", async (req, res) => {
     try {
-        const { id } = req.params;
-        const { reporterId, reportReason } = req.body;
-        const post = await POST.findById(id)
-        if(!post) return res.status(404).json({msg: "Post not found"})
-
-        const checkUser = await USER.findById(reporterId) || await DiscordUser.findById(reporterId) || await GoogleUser.findById(reporterId) 
-        if(!checkUser) return res.status(404).json({msg: "User not found"})
-
-        const hasReported = post.Report.some(report => report.reporterId === reporterId);
-        if (hasReported) {
-            return res.status(404).json({ msg: "You have already reached the maximum number of reports." });
-        }
-        post.Report.push(req.body);
-        post.ReportsNumber += 1;
-
-        if(post.ReportsNumber == 6){
-            await POST.findByIdAndDelete(id)
-            res.status(200).json({msg: "Report Has Been Deleted Due to Reports"})
-        }else{
-            await post.save()
-            res.status(201).json({msg: "Report Has Been Created"})
-        }
+      const { id } = req.params;
+      const { reporterId, reportReason } = req.body;
+  
+      if (!reporterId || !reportReason) {
+        return res.status(400).json({ msg: "Description Is Not Valid" });
+      }
+  
+      const post = await POST.findById(id);
+      if (!post) return res.status(404).json({ msg: "Post not found" });
+  
+      const checkUser = await GoogleUser.findOne({ googleId: post.CreatorId }) || await USER.findById(reporterId) || await DiscordUser.findById(reporterId) || await GoogleUser.findById(reporterId);
+  
+      if (!checkUser) return res.status(404).json({ msg: "User not found" });
+  
+      const hasReported = post.Report.some(report => report.reporterId === reporterId);
+      if (hasReported) {
+        return res.status(400).json({ msg: "You have already reached the maximum number of reports." });
+      }
+  
+      post.Report.push({ reporterId, reportReason });
+      post.ReportsNumber += 1;
+  
+      if (post.ReportsNumber >= 6) {
+        await POST.findByIdAndDelete(id);
+        return res.status(200).json({ msg: "Post has been deleted due to multiple reports" });
+      } else {
+        await post.save();
+        return res.status(201).json({ msg: "Report has been created" });
+      }
     } catch (error) {
-        res.status(500).json({error});
+      console.error(error); 
+      return res.status(500).json({ error: error.message });
     }
-})
-
+  });
 // Add Comment to a post
 postRoutes.put("/api/posts/addComment/:id", async(req, res) => {
     try {

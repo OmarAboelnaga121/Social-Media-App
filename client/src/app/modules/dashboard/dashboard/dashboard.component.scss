@@ -1,0 +1,77 @@
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 90vh;
+    height: 100%;
+    .navigationsContainer{
+        background-color: #fff;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20px !important;
+        border-radius: 15px;
+        margin-left: 10px;
+        padding: 10px;
+        ul{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            li, i{
+                font-size: 30px;
+            }
+            li{
+                a{
+                    color: var(--black-color);
+                }
+
+            }
+        }
+    }
+
+    .postsContainer{
+        width: 60%;
+        min-height: 90vh;
+        background-color: #fff;
+        border-radius: 15px;
+        padding-top: 20px !important;
+        padding: 10px;
+    }
+    .profileContainer{
+        width: 25%;
+        background-color: #fff;
+        border-radius: 15px;
+        height: 100%;
+        gap: 15px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px !important;
+        padding: 10px;
+        margin-right: 5px;
+        .infUser{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 10px;
+            img{
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+            }
+        }
+        .numUser{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            .posts, .friends{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+

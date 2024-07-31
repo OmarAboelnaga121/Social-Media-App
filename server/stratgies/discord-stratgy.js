@@ -30,7 +30,8 @@ passport.use(new discordPassport({
                 discordId: profile.id,
                 displayName: profile.username,
                 mail: profile.email,
-                photo: profile.avatar
+                photo: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`
+                // https://cdn.discordapp.com/avatars/1191082353162985492/a1ba85074261a93ff9087438ab2f497c.png
             })
         }
 

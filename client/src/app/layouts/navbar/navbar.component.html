@@ -21,8 +21,13 @@
         <div class="authanticatedContainer">
             <h2 class="logo"><a routerLink="/"><span class="first-word">Connect</span><span class="second-word">Verse</span></a></h2>
             
-            <div>
-                
+            <div class="searchContainer">
+                <input placeholder="Search" class="serachInput" type="text" pInputText />
+            </div>
+
+            <div class="profileContainer" >
+                <img [src]="imageUrl" alt="Profile Picture" *ngIf="imageUrl">
+                <h3>Hi, {{user.displayName}} 👋</h3>
             </div>
         </div>
     }

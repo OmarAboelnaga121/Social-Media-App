@@ -11,6 +11,11 @@ const DiscordUserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    postNumber: {
+        type: Number,
+        required: false,
+        default: 0
+    },
     mail: {
         type: String,
         required: true,
@@ -19,6 +24,7 @@ const DiscordUserSchema = new mongoose.Schema({
     photo: {
         type: String,
         required: false,
+        default: 'http://localhost:3000/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
     },
     friends: {
         type: [FriendSchema],

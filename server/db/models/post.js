@@ -20,6 +20,10 @@ const PostSchema = new mongoose.Schema({
         required: false,
         default: 0
     },
+    LikedBy: {
+        type: [String],
+        default: []
+    },
     Comments: {
         type: [commentSchema],
         required: false,

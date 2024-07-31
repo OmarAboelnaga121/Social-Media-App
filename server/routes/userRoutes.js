@@ -34,7 +34,7 @@ userRoutes.get('/api/users', async(req, res) => {
 userRoutes.post('/api/users/register', upload.single('image'), async(req, res) => {
     try {
         const { displayName, mail, password } = req.body;
-        const photo = req.file ? `http://localhost:3000/${req.file.path}` : '';
+        const photo = req.file ? `http://localhost:3000/${req.file.path}` : 'http://localhost:3000/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg';
         
         // Validation
         if (!displayName || displayName.length <= 2) {
@@ -134,8 +134,9 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 userRoutes.get('/auth/discord/callback',
     passport.authenticate('discord', { failureRedirect: '/login' }),
     (req, res) => {
-      res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
-      res.redirect('http://localhost:4200/dashboard');
+        console.log(req.user.id);
+        res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
+        res.redirect('http://localhost:4200/dashboard');
     }
   );
 
@@ -147,8 +148,9 @@ userRoutes.get('/api/users/google',
 userRoutes.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
+    console.log(req.user);
     res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
-    res.redirect('http://localhost:4200');
+    res.redirect('http://localhost:4200/dashboard');
   }
 );
 
