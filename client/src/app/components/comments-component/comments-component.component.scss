@@ -1,0 +1,28 @@
+.container{
+    .makeCommentContainer{
+        display: flex;
+        justify-content: center;
+        .controll{
+            width: 90%;
+            justify-content: center;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            .commentInput{
+                width: 80%;
+                height: 80%;
+                border-radius: 30px;
+                padding-left: 10px;
+            }
+            .primaryButton{
+                width: 20%;
+                height: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+    }
+
+}

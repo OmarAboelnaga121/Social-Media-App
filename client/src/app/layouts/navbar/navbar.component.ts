@@ -21,6 +21,7 @@ export class NavbarComponent {
     this.checkAuth()
     
     this.getAuthUser()
+    this.darkModeCheck()
   }
 
   // Variacbles
@@ -29,7 +30,7 @@ export class NavbarComponent {
   openMenu : boolean = false
   user : any = {}
   imageUrl ! : string
-
+  darkMode !: boolean 
 
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
   
@@ -71,7 +72,6 @@ export class NavbarComponent {
     this.httpClient.getUser(this.cookieId).subscribe(
       (data) => {
         this.user = data
-        console.log(this.user);
         this.imageUrl = data.photo 
         
       },
@@ -79,15 +79,21 @@ export class NavbarComponent {
         this.httpClient.getUserProvider(this.cookieId).subscribe(
           (data) => {
             this.user = data
-            console.log(this.user);
             this.imageUrl = data.photo 
             
           },
           (error) => {
-            console.log(error)
+            // console.log(error)
           }
         );
       }
     );
+  }
+  darkModeCheck(){
+    if (this.cookieService.get('dark')) {
+      this.darkMode = true;
+    } else {
+      this.darkMode = false;
+    }
   }
 }

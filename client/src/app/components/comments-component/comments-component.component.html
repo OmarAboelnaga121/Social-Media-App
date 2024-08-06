@@ -1,0 +1,18 @@
+<div class="container" >
+  <div class="makeCommentContainer">
+    <div class="controll">
+      <input placeholder="Make a comment" class="commentInput" type="text" pInputText #commentInput/>
+      <button class="primaryButton" (click)="addComment(commentInput.value )">-></button>
+    </div>
+  </div>
+
+    <div class="commentsConatiner">
+        @if (postComments.Comments && postComments.Comments.length > 0) {
+            @for (comment of postComments.Comments; track comment) {
+              <p>{{ comment.commentText }}</p>
+            }
+          } @else {
+            <p>No Comments</p>
+          }
+    </div>
+</div>

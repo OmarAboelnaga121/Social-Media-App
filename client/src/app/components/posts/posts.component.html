@@ -13,12 +13,17 @@
             <div class="imgConatiner" *ngIf="post.photo">
                 <img [src]="post.photo" alt="post Image" class="postImage">
             </div>
-            <div class="controllContainers">
-                <button class="secondryButton" (click)="addLike()"><i class="pi pi-heart"></i>Like</button>
-                <button class="secondryButton"><i class="pi pi-comment"></i>Comment</button>
+            <div class="infOfPost">
+                <p>Likes: {{post.Likes}}</p>
+                <p>Comments: {{post.CommentsNumber}}</p>
             </div>
+            <div class="controllContainers">
+                <button class="secondryButton" (click)="addLike(post)"><i class="pi {{ isLiked(post) ? 'pi-heart-fill' : 'pi-heart' }}"></i>{{ isLiked(post) ? 'Liked' : 'Like' }}</button>
+                <button class="secondryButton" (click)="comment(post._id)"><i class="pi pi-comment"></i>Comment</button>
+            </div>
+            <app-comments-component [class.darkModeBackground]="darkMode" [class.lightModeBackground]="!darkMode" [postComments]="post" *ngIf="isPostOpen(post._id)"></app-comments-component>
         </div>
-        <app-pop-up-report [reportedPostId]="post._id"></app-pop-up-report>
+        <app-pop-up-report [reportedPostId]="post._id" ></app-pop-up-report>
     }
 
     <p>You Caugth All Posts</p>

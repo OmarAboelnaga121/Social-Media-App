@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserServicesService } from '../../services/user-services.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,19 +12,21 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ProfileComponent {
 
-  constructor(private cookieService: CookieService, private userService : UserServicesService){}
+  constructor(private cookieService: CookieService, private userService : UserServicesService, private route: ActivatedRoute){}
 
   user : any = []
   cookieId : string = ''
+  dynamicParam !: string;
 
   ngOnInit(): void{
+    this.route.params.subscribe(params => {
+      this.dynamicParam = params['id'];
+    });
     this.getUser();
   }
 
   getUser(){
-      this.cookieId = this.cookieService.get('_id');    
-
-      this.userService.getUser(this.cookieId).subscribe(
+      this.userService.getUser(this.dynamicParam).subscribe(
         (data)=>{
           console.log(data);
           this.user = data

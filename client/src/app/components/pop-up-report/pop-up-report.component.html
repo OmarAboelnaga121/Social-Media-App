@@ -6,12 +6,18 @@
             </div>
             <div class="flex align-items-center gap-3 mb-3 input">
                 <label for="resportResoan" class="font-semibold w-6rem">Report Resoan</label>
-                <input pInputText id="resportResoan" #resportResoan/>
+                <p-dropdown 
+                [options]="reasons" 
+                [(ngModel)]="selectedReason" 
+                optionLabel="reason"
+                placeholder="Select The reason of the report" 
+                #resportResoan
+                />
             </div>
         </div>
         
         <p-confirmPopup />
-        <button class="primaryButton button" (click)="makeReport(resportResoan.value, $event)">Make Report</button>
+        <button class="primaryButton button" (click)="makeReport(selectedReason, $event)">Make Report</button>
     </div>
 
 </p-dialog>

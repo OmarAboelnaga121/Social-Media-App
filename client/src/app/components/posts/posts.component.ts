@@ -7,28 +7,38 @@ import { MessageService } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { PopUpReportComponent } from "../pop-up-report/pop-up-report.component";
+import { CookieService } from 'ngx-cookie-service';
+import { CommentsComponentComponent } from "../comments-component/comments-component.component";
 
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [CommonModule, ToastModule, RippleModule, PopUpReportComponent],
+  imports: [CommonModule, ToastModule, RippleModule, PopUpReportComponent, CommentsComponentComponent],
   providers: [MessageService],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
 })
 export class PostsComponent {
-  constructor(private postService : PostServicesService, private userService : UserServicesService){}
+  constructor(private postService : PostServicesService, private userService : UserServicesService, private cookieService: CookieService){}
 
   // View child for children to controll on them
   @ViewChild(PopUpReportComponent) popUpReportComponent!: PopUpReportComponent;
+  @ViewChild(CommentsComponentComponent) commentsComponentComponent!: CommentsComponentComponent;
 
   // Variables
   posts : any = []
+  liked ! : boolean 
+  showComments : boolean = false
+  openMenu: boolean = false;
+  openPostId: string | null = null;
+  darkMode !: boolean 
+
 
   // On Initialize the page
   ngOnInit(): void{
     this.getPosts();
+    this.darkModeCheck()
   }
 
   // Fun to get all posts
@@ -71,5 +81,44 @@ export class PostsComponent {
   }
 
   // Fun to add or remove like
-  addLike(){}
+  addLike(post : any){
+    const userId = this.cookieService.get('_id')
+
+    this.postService.addLike(post._id, userId).subscribe(
+      (res)=>{
+        post.LikedBy = res.post.LikedBy;   
+        if (post.LikedBy.includes(userId)) {
+          post.Likes += 1;
+        } else {
+            post.Likes -= 1;
+        }     
+      }
+    )
+  }
+
+  isLiked(post: any): boolean {
+    return post.LikedBy.includes(this.cookieService.get('_id'));
+  }
+
+  comment(postId : string){
+    if (this.openPostId === postId) {
+      this.openPostId = null;
+    } else {
+      this.openPostId = postId;
+    }
+
+  }
+
+  isPostOpen(postId: string): boolean {
+    return this.openPostId === postId;
+  }
+
+  
+  darkModeCheck(){
+    if (this.cookieService.get('dark')) {
+      this.darkMode = true;
+    } else {
+      this.darkMode = false;
+    }
+  }
 }

@@ -7,11 +7,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { PostServicesService } from '../../services/post-services.service';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pop-up-report',
   standalone: true,
-  imports: [DialogModule, InputTextModule, CommonModule, ToastModule, ConfirmPopupModule],
+  imports: [DialogModule, InputTextModule, CommonModule, ToastModule, ConfirmPopupModule, FormsModule, DropdownModule],
   providers: [MessageService, ConfirmationService],
   templateUrl: './pop-up-report.component.html',
   styleUrl: './pop-up-report.component.scss'
@@ -23,7 +25,18 @@ export class PopUpReportComponent {
   @Output() reportData = new EventEmitter<any>();
   errorMessage : string = ""
 
+  reasons : any = [
+    { reason: 'Nudity or Sexual Content' },
+    { reason: 'Spam'},
+    { reason: 'Self-Harm'},
+    { reason: 'Inappropriate Behavior'},
+  ]
+  selectedReason: any;
+
+
   constructor(private confirmationService: ConfirmationService,private cookieService: CookieService, private messageService: MessageService, private postService : PostServicesService){}
+
+
 
   // Fun to make a reporte
   makeReport(resportResoan : string, event: Event){

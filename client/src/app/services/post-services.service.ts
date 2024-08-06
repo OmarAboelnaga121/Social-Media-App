@@ -35,4 +35,8 @@ export class PostServicesService {
   addReportForPost(reportedPostId : string, reporterId : string, reportReason : string) : Observable<any>{
     return this.http.put<any>(`http://localhost:3000/api/posts/addReport/${reportedPostId}`, {reporterId, reportReason})
   }
+
+  addCommentForPost(commentPostId : string, commenterId : string, commentText : string) : Observable<any>{
+    return this.http.put<any>(`http://localhost:3000/api/posts/addComment/${commentPostId}`, {commenterId, commentText})
+  }
 }

@@ -25,6 +25,7 @@ export class DashboardComponent {
   cookieId : string = ''
   user : any = []
   showPosts : boolean = true
+  darkMode !: boolean 
 
   // View Childs to get access to
   @ViewChild(PopUpPostComponent) popUpPostComponent!: PopUpPostComponent;
@@ -33,6 +34,7 @@ export class DashboardComponent {
   // On initialize the page
   ngOnInit(): void{
     this.getUser();
+    this.darkModeCheck();
   }
 
   // Fun to get user data
@@ -41,13 +43,11 @@ export class DashboardComponent {
 
       this.userService.getUser(this.cookieId).subscribe(
         (data)=>{
-          console.log(data);
           this.user = data
         },
         (error)=>{
           this.userService.getUserProvider(this.cookieId).subscribe(
             (data)=>{
-              console.log(data);
               this.user = data
             },
             (error)=>{
@@ -90,4 +90,11 @@ export class DashboardComponent {
 
   }
 
+  darkModeCheck(){
+    if (this.cookieService.get('dark')) {
+      this.darkMode = true;
+    } else {
+      this.darkMode = false;
+    }
+  }
 }

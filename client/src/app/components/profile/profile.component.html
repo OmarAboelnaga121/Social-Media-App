@@ -1,0 +1,16 @@
+<section class="container">
+    <div class="imgAndNameContainer">
+        <img [src]="user.photo" alt="user profile picture">
+        <h2>{{user.displayName}}</h2>
+    </div>
+    <div class="numUser">
+        <div class="posts">
+            <h2>Posts</h2>
+            <h2>{{user.postNumber}}</h2>
+        </div>
+        <div class="friends">
+            <h2>Friends</h2>
+            <h2>{{user.friends?.length}}</h2>
+        </div>
+    </div>
+</section>

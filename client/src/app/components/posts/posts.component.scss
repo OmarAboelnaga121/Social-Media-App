@@ -55,3 +55,10 @@ section{
 
     }
 }
+.darkModeBackground{
+    background: #040D12 !important;
+    color: var(--grey-color) !important;
+}
+.lightModeBackground{
+    background-color: var(--grey-color) !important;
+}

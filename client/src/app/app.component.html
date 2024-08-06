@@ -1,5 +1,7 @@
-<app-navbar></app-navbar>
+<div [class.darkMode]="darkMode">
+    <app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+    <router-outlet></router-outlet>
+    
+    <app-footer></app-footer>
+</div>

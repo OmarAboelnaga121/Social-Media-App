@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .darkModeContainer{
+        gap: 42% !important;
+    }
+    .darkModeContainer, .logOutContainer{
+        border-radius: 15px;
+        border: 2px solid var(--primary-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40%;
+        height: 65px;
+        .secondryButton, .dangerButton{
+            width: 20%;
+        }
+    }
+    .logOutContainer{
+        border: 2px solid var(--danger-red-color);
+    }
+}

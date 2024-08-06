@@ -1,9 +1,10 @@
 // Common styles between the 2 buttons
-.primaryButton,.secondryButton{
+.primaryButton,.secondryButton, .dangerButton{
     width: 100%;
     border-radius: 10px;
     padding: 12px;
     font-size: 15px;
+    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -16,6 +17,14 @@
     background-color: var(--grey-color);
     border: var(--primary-color) solid 2px;
     color: var(--secondry-color);
+}
+.dangerButton{
+    background-color: var(--danger-red-color);
+    border: 0;
+    color: var(--white-color);
+}
+.primaryButton:focus{
+    transform: scale(0.9);
 }
 .active{
     background-color: var(--primary-color);

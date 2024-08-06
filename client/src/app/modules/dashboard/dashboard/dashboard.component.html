@@ -1,19 +1,19 @@
-<section class="dashboard">
+<section class="dashboard" >
     <div class="container">
-        <div class="navigationsContainer">
+        <div class="navigationsContainer" [class.darkModeBackground]="darkMode">
             <ul>
-                <li><a routerLink="/dashboard/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-home"></i> Home</a></li>
-                <li><a routerLink="/dashboard/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-cog"></i> Settings</a></li>
-                <li><a routerLink="/dashboard/profile/:id" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-user"></i> Profile</a></li>
-                <li><a routerLink="/about"><i class="pi pi-question"></i> About Us</a></li>
-                <li><a routerLink="/contact"><i class="pi pi-envelope"></i> Contact</a></li>
+                <li><a routerLink="/dashboard/" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-home"></i> Home</a></li>
+                <li><a routerLink="/dashboard/settings" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-cog"></i> Settings</a></li>
+                <li><a [routerLink]="['/dashboard/profile', cookieId]" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-user"></i> Profile</a></li>
+                <li><a routerLink="/about" [class.darkModeText]="darkMode"><i class="pi pi-question"></i> About Us</a></li>
+                <li><a routerLink="/contact" [class.darkModeText]="darkMode"><i class="pi pi-envelope"></i> Contact</a></li>
             </ul>
         </div>
-        <div class="postsContainer" >  
+        <div class="postsContainer" [class.darkModeBackground]="darkMode">  
             <app-posts *ngIf="showPosts"></app-posts>            
             <router-outlet></router-outlet>
         </div>
-        <div class="profileContainer">
+        <div class="profileContainer" [class.darkModeBackground]="darkMode">
             <div class="infUser">
                 <img [src]='user.photo' alt="user's Profile Pic">
                 <h3>{{user.displayName}}</h3>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="friends">
                     <h2>Friends</h2>
-                    <h2>{{user.friends.length}}</h2>
+                    <h2>{{user.friends?.length}}</h2>
                 </div>
             </div>
             <button class="primaryButton" (click)="openPopUp()">Create Post</button>

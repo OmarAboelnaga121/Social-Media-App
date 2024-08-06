@@ -5,6 +5,7 @@ const USER = require('../db/models/user')
 const DiscordUser = require('../db/models/discordUser')
 const GoogleUser = require('../db/models/googleUser')
 const upload = require('../middlewares/upload');
+const mongoose = require('mongoose');
 
 //Get All posts
 postRoutes.get('/api/posts', async (req, res) => {
@@ -96,9 +97,16 @@ postRoutes.put("/api/posts/addReport/:id", async (req, res) => {
   
       const post = await POST.findById(id);
       if (!post) return res.status(404).json({ msg: "Post not found" });
+
+      
+
+    //   const reporterObjectId = mongoose.Types.ObjectId(reporterId);
+
   
-      const checkUser = await GoogleUser.findOne({ googleId: post.CreatorId }) || await USER.findById(reporterId) || await DiscordUser.findById(reporterId) || await GoogleUser.findById(reporterId);
+      const checkUser = await USER.findById(reporterId) || await DiscordUser.findById(reporterId) || await GoogleUser.findById(reporterId) || await GoogleUser.findOne({ googleId: reporterId });
   
+      if(reporterId === post.CreatorId) return res.status(400).json({ msg: "This is your Post" });
+      
       if (!checkUser) return res.status(404).json({ msg: "User not found" });
   
       const hasReported = post.Report.some(report => report.reporterId === reporterId);
@@ -129,14 +137,14 @@ postRoutes.put("/api/posts/addComment/:id", async(req, res) => {
         const post = await POST.findById(id)
         if(!post) return res.status(404).json({msg: "Post not found"})
 
-        const checkUser = await USER.findById(commenterId) || await DiscordUser.findById(commenterId) || await GoogleUser.findById(commenterId) 
+        const checkUser = await GoogleUser.findOne({ googleId: commenterId }) || await USER.findById(commenterId) || await DiscordUser.findById(commenterId) || await GoogleUser.findById(commenterId)
         if(!checkUser) return res.status(404).json({msg: "User not found"})
 
         post.Comments.push(req.body);
         post.CommentsNumber += 1;
 
         await post.save()
-        res.status(201).json({msg: "Comment Has Been Created"})
+        res.status(201).json(req.body)
         
     } catch (error) {
         res.status(500).json({error});
