@@ -9,8 +9,16 @@ const mongoose = require('mongoose');
 
 //Get All posts
 postRoutes.get('/api/posts', async (req, res) => {
+    const { excludeIds } = req.query;
+
     try {
-        const posts = await POST.aggregate([{ $sample: { size: 10 } }]);
+        const excludedObjectIds = excludeIds ? excludeIds.split(',').map(id => mongoose.Types.ObjectId(id)) : [];
+
+        const posts = await POST.aggregate([
+            { $match: { _id: { $nin: excludedObjectIds } } },  
+            { $sample: { size: 10 } }
+        ]);
+
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error });

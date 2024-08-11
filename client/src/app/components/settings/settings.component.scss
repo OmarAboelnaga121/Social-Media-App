@@ -21,3 +21,40 @@
         border: 2px solid var(--danger-red-color);
     }
 }
+@media screen and (max-width: 800px) {
+    .container{
+        .darkModeContainer{
+            gap: 30% !important;
+        }
+        .logOutContainer{
+            gap: 27%;
+        }
+    }
+}
+@media screen and (max-width: 575px) {
+    .container{
+        .darkModeContainer{
+            gap: 20% !important;
+        }
+        .logOutContainer{
+            gap: 17%;
+        }
+        .secondryButton, .dangerButton{
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            white-space: nowrap;
+            align-items: center;
+        }
+    }
+}
+@media screen and (max-width: 575px) {
+    .container{
+        .darkModeContainer{
+            gap: 1% !important;
+        }
+        .logOutContainer{
+            gap: 0%;
+        }
+    }
+}

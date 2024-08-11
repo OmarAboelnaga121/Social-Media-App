@@ -34,13 +34,17 @@ userRoutes.put('/api/user/addFriend', async(req, res) => {
     try {
         const { userId, friendUserId } = req.body;
 
-        const checkUser = await DiscordUser.findById(userId) || await USER.findById(userId) || await GoogleUser.findById(userId);
+        const checkUser = await GoogleUser.findOne({googleId: userId}) || await DiscordUser.findById(userId) || await USER.findById(userId) || await GoogleUser.findById(userId);
 
-        const checkFriend = await DiscordUser.findById(friendUserId) || await USER.findById(friendUserId) || await GoogleUser.findById(friendUserId);
+        const checkFriend = await GoogleUser.findOne({googleId: friendUserId}) || await DiscordUser.findById(friendUserId) || await USER.findById(friendUserId) || await GoogleUser.findById(friendUserId);
 
+        const isFriendAlready = checkUser.friends.some(friend => friend.id === friendUserId);
+
+        if(friendUserId === userId) return res.status(400).json({ message: "this is the user" });
         if (!checkFriend) return res.status(400).json({ message: "Friend Not Found" });
         if (!checkUser) return res.status(400).json({ message: "User Not Found" });
-    
+        if (isFriendAlready) return res.status(400).json({ message: "Friend is already added" });
+
         const friend = {
             id: friendUserId, 
             displayName: checkFriend.displayName,
@@ -80,5 +84,23 @@ userRoutes.put('/api/user/deleteFriend', async(req, res) => {
     }
 
 });
+
+userRoutes.get('/api/user/posts/:userId', async(req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const checkUser = await GoogleUser.findOne({googleId: userId}) || await DiscordUser.findById(userId) || await USER.findById(userId) || await GoogleUser.findById(userId);
+
+        if (!checkUser) {
+            return res.status(400).json({ message: "User Not Found" });
+        }
+        
+        const postsFinder = await POST.find({ CreatorId: userId });
+        
+        res.status(200).json(postsFinder);
+    } catch (error) {
+        return res.status(500).json({ message: error})
+    }
+})
 
 module.exports = userRoutes

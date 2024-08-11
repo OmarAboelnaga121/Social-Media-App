@@ -13,4 +13,29 @@
             <h2>{{user.friends?.length}}</h2>
         </div>
     </div>
+    <div class="postsContainer">
+        @for(post of postsOfUser;track postsOfUser){
+            <div class="postContainer" *ngIf="post">
+                <div class="topOfPost">
+                    <div class="profileViewer">
+                        <img [src]="user.photo" alt="userProfilePic" *ngIf="user && user.photo">
+                        <p *ngIf="user">{{user.displayName}}</p>
+                    </div>    
+                </div>
+                <h3>{{post.Description}}</h3>
+                <div class="imgConatiner" *ngIf="post.photo">
+                    <img [src]="post.photo" alt="post Image" class="postImage">
+                </div>
+                <div class="infOfPost">
+                    <p>Likes: {{post.Likes}}</p>
+                    <p>Comments: {{post.CommentsNumber}}</p>
+                </div>
+                <div class="controllContainers">
+                    <button class="secondryButton" (click)="addLike(post)"><i class="pi {{ isLiked(post) ? 'pi-heart-fill' : 'pi-heart' }}"></i>{{ isLiked(post) ? 'Liked' : 'Like' }}</button>
+                    <button class="secondryButton" (click)="comment(post._id)"><i class="pi pi-comment"></i>Comment</button>
+                </div>
+                <app-comments-component [class.darkModeBackground]="darkMode" [class.lightModeBackground]="!darkMode" [postComments]="post" *ngIf="isPostOpen(post._id)"></app-comments-component>
+            </div>
+        }
+    </div>
 </section>

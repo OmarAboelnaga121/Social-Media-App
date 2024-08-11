@@ -1,11 +1,26 @@
-<section class="section">
+<section class="container">
+    <div class="makePostContainer">
+        <div class="infUserContainer">
+            <img [src]="user.photo" alt="my profile">
+            <input placeholder="What is in your mind" pInputText #descriptionInput/>
+        </div>
+        <div class="fileContainer">
+            <input placeholder="Select Your Photo Profile" type="file" class="file" #photoInput>
+            <button class="primaryButton" (click)="makePost(descriptionInput.value, photoInput)">-></button>
+        </div>
+        <div class="card flex justify-content-center">
+            <p-toast />
+        </div>
+        
+    </div>
     @for (post of posts; track post) {
         <div class="postContainer" *ngIf="post">
             <div class="topOfPost">
-                <div class="profileViewer">
-                    <img [src]="post.userDetails.photo" alt="userProfilePic" *ngIf="post.userDetails && post.userDetails.photo">
+                <div class="profileViewer" (mouseenter)="hoverStates[post._id] = true" (mouseleave)="hoverStates[post._id] = false">
+                    <img [routerLink]="post.userDetails.googleId ? 'profile/' + post.userDetails.googleId : 'profile/' + post.userDetails._id" [src]="post.userDetails.photo" alt="userProfilePic" *ngIf="post.userDetails && post.userDetails.photo">
                     <p *ngIf="post.userDetails">{{post.userDetails.displayName}}</p>
-                    </div>
+                    <button (click)="addFriend(post.userDetails._id)" class="addFrind primaryButton" [ngClass]="{'visible': hoverStates[post._id]}"><i class="pi pi-user-plus"></i></button>
+                </div>
                     <button class="primaryButton" (click)="makeReport()">Report</button>
 
             </div>
@@ -26,5 +41,6 @@
         <app-pop-up-report [reportedPostId]="post._id" ></app-pop-up-report>
     }
 
+    <button class="primaryButton" (click)="loadMorePosts()">Load More</button>
     <p>You Caugth All Posts</p>
 </section>

@@ -31,4 +31,80 @@
             justify-content: center;
         }
     }
+    .postsContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        .postContainer{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 90%;
+            .topOfPost{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .profileViewer{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    img{
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 50%;
+                        border: 1px solid var(--primary-color);
+                    }
+                    .addFrind {
+                        display: none;
+                        position: relative;
+                        padding: 10px;
+                        width: 35px;
+                        height: 35px;
+                        i{
+                            position: absolute;
+                            top: 9px;
+                            left: 9px;                    
+                        }
+                    }
+    
+                    .addFrind.visible {
+                        display: block;
+                    }
+                }
+    
+                button{
+                    width: 15%;
+                }
+            }
+            .imgConatiner{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .postImage{
+                    width: 100%;     
+                    height: auto;     
+                    max-width: 600px;
+                    text-align: center;
+                    object-fit: contain;
+                }
+            }
+            .controllContainers{
+                display: flex;
+                gap: 10px;
+                button{
+                    position: relative;
+                    i{
+                        position: absolute;
+                        top: 12px;
+                        left: 10px;
+                        font-size: 20px;
+                    }
+                }
+            }
+    
+        }
+    }
 }

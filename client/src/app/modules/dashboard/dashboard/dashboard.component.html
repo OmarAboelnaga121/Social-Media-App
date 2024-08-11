@@ -14,24 +14,21 @@
             <router-outlet></router-outlet>
         </div>
         <div class="profileContainer" [class.darkModeBackground]="darkMode">
-            <div class="infUser">
-                <img [src]='user.photo' alt="user's Profile Pic">
-                <h3>{{user.displayName}}</h3>
+            <h2>Friends</h2>
+            <div *ngIf="user.friends?.length > 0" class="friendsConatiner">
+                @for(friend of user.friends;track friend){
+                    <div class="friendsContainer">
+                        <img [src]="friend.Image" alt="friendImage">
+                        <h2>{{friend.displayName}}</h2>
+                        <button class="primaryButton" (click)="deleteFrind(friend.id)"><i class="pi pi-user-minus"></i></button>
+                    </div>
+                }
             </div>
-            <div class="numUser">
-                <div class="posts">
-                    <h2>Posts</h2>
-                    <h2>{{user.postNumber}}</h2>
-                </div>
-                <div class="friends">
-                    <h2>Friends</h2>
-                    <h2>{{user.friends?.length}}</h2>
-                </div>
+            <div *ngIf="user.friends?.length === 0">
+                No Friends
             </div>
-            <button class="primaryButton" (click)="openPopUp()">Create Post</button>
         </div>
     </div>
-    <app-pop-up-post (formDataOutput)="formDataOutput($event)"></app-pop-up-post>
 
 
 </section>

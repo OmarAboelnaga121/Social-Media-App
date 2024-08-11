@@ -26,9 +26,17 @@
             </div>
 
             <div class="profileContainer" >
-                <img [src]="imageUrl" alt="Profile Picture" *ngIf="imageUrl">
-                <h3>Hi, {{user.displayName}} 👋</h3>
+                 <h3>Hi, {{user.displayName}}</h3>
             </div>
+            <ul [class.openMenu]="openMenu">
+                <li><a routerLink="/dashboard/" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-home"></i> Home</a></li>
+                <li><a routerLink="/dashboard/settings" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-cog"></i> Settings</a></li>
+                <li><a [routerLink]="['/dashboard/profile', cookieId]" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-user"></i> Profile</a></li>
+                <li><a routerLink="/about" [class.darkModeText]="darkMode"><i class="pi pi-question"></i> About Us</a></li>
+                <li><a routerLink="/contact" [class.darkModeText]="darkMode"><i class="pi pi-envelope"></i> Contact</a></li>
+            </ul>
+        
+            <button class="displayMobile" (click)="openMenuFun()"><i class="pi pi-bars"></i></button>
         </div>
     }
 

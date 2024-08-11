@@ -16,6 +16,12 @@ export class UserServicesService {
     return data
   }
 
+  getUserPosts(userId : string) : Observable<any>{
+    let data = this.http.get<any>(`http://localhost:3000/api/user/posts/${userId}`)
+
+    return data
+  }
+
   // Fun to get the user but by using the id of google
   getUserProvider(userId : string) : Observable<any>{
     let data = this.http.get<any>(`http://localhost:3000/api/userProviders/${userId}`)
@@ -44,12 +50,17 @@ export class UserServicesService {
     return this.http.post(`http://localhost:3000/api/users/login`, {mail, password});
   }
 
-
-
-  sendContactData(name : string, mail : string, message : string) : Observable<any>{
-    console.log(message);
-    
+  sendContactData(name : string, mail : string, message : string) : Observable<any>{    
     return this.http.post('http://localhost:3000/send-email', {name, mail, message})
   }
 
+  addFriend(userId : string, friendUserId : string){
+    return this.http.put('http://localhost:3000/api/user/addFriend', {userId, friendUserId})
+  }
+
+  deleteFriend(userId : string, friendUserId : string){
+    return this.http.put('http://localhost:3000/api/user/deleteFriend', {userId, friendUserId})
+  }
+
+  
 }
