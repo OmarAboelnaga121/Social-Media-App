@@ -16,6 +16,12 @@ export class UserServicesService {
     return data
   }
 
+  getUsers() : Observable<any>{
+    let data = this.http.get<any>(`http://localhost:3000/api/users`)
+
+    return data
+  }
+
   getUserPosts(userId : string) : Observable<any>{
     let data = this.http.get<any>(`http://localhost:3000/api/user/posts/${userId}`)
 

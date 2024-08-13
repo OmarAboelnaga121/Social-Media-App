@@ -22,7 +22,20 @@
             <h2 class="logo"><a routerLink="/"><span class="first-word">Connect</span><span class="second-word">Verse</span></a></h2>
             
             <div class="searchContainer">
-                <input placeholder="Search" class="serachInput" type="text" pInputText />
+                <input placeholder="Search" (ngModelChange)="onSearchChange($event)" class="serachInput" type="text" pInputText [(ngModel)]="searchValue"/>
+                <div class="searchFieldContainer">
+                    <div *ngFor="let userr of users | search: searchValue">
+            
+                        <!-- @for(userr of users; track userr ){ -->
+                            <div class="searchField" (click)="profileSearch(userr.googleId ? userr.googleId : userr._id)" [routerLink]="userr.googleId ? 'dashboard/profile/' + userr.googleId : 'dashboard/profile/' + userr._id">
+                                <img [src]="userr.photo" alt="user photo">
+                                {{userr.displayName}}
+                            </div>
+                        <!-- } -->
+                    </div>
+                </div>
+
+               
             </div>
 
             <div class="profileContainer" >

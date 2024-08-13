@@ -34,9 +34,10 @@ export class ProfileComponent {
     this.route.params.subscribe(params => {
       this.dynamicParam = params['id'];
       console.log(this.dynamicParam);
+      this.getUser();
+      this.getUserPosts();
     });
-    this.getUser();
-    this.getUserPosts();
+
   }
 
   getUser(){

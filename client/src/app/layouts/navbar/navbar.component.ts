@@ -5,12 +5,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../pipes/search.pipe';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [InputTextModule, RouterModule, CommonModule],
+  imports: [InputTextModule, RouterModule, CommonModule, FormsModule, SearchPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -22,6 +24,7 @@ export class NavbarComponent {
     
     this.getAuthUser()
     this.darkModeCheck()
+    // this.getUsers()
   }
 
   // Variacbles
@@ -29,8 +32,10 @@ export class NavbarComponent {
   cookieId : string = ''
   openMenu : boolean = false
   user : any = {}
+  users : any = []
   imageUrl ! : string
   darkMode !: boolean 
+  searchValue : any = ''
 
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
   
@@ -95,5 +100,35 @@ export class NavbarComponent {
     } else {
       this.darkMode = false;
     }
+  }
+
+  profileSearch(userId : any){
+    this.route.navigate(['/dashboard/profile', userId]);
+    this.users = [];  
+  }
+  onSearchChange(searchValue: string) {
+    if (searchValue.length === 0) {
+      this.users = [];  
+    } else if (searchValue.length === 1 || searchValue.length >= 1) {
+      this.getUsers();  
+    }
+  }
+
+  getUsers(){
+
+    this.httpClient.getUsers().subscribe(
+      (data) => {
+        
+        const allUsers = [...data.discordUsers, ...data.googleUsers, ...data.users];
+        this.users = allUsers
+        console.log(allUsers);
+
+      },
+      (err) => {
+        console.log(err);
+        
+      },
+      
+    );
   }
 }

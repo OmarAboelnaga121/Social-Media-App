@@ -55,13 +55,43 @@ header{
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             margin-left: 4rem;
+            position: relative;
             .serachInput{
                 height: 30px;
                 border-radius: 15px;
                 width: 400px;
                 padding: 0 5px;
             }
+            .searchFieldContainer{
+                position: absolute;
+                top: 40px;
+                width: 400px;
+                display: flex;
+                gap: 10px;
+                background-color: var(--grey-color);
+                flex-direction: column;
+                z-index: 999;
+                // border-radius: 15px;
+                // padding-bottom: 5px;
+                .searchField{
+                    height: 100%;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    border-bottom: 1px #111 solid;
+                    padding-bottom: 10px;
+                    padding-left: 10px;
+                    img{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+            
         }
         .profileContainer{
             display: flex;
