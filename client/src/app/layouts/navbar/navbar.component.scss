@@ -265,7 +265,7 @@ header{
         .authanticatedContainer{
             .searchContainer{
                 margin: 0 1rem;
-                .serachInput{
+                .serachInput, .searchFieldContainer{
                     width: 200px !important;
                     padding: 0 5px;
                 }
@@ -283,7 +283,7 @@ header{
 @media screen and (max-width: 400px) {
     header{
         .authanticatedContainer{
-            .searchContainer{
+            .searchContainer, .searchFieldContainer{
                 .serachInput{
                     width: 130px !important;
                 }
