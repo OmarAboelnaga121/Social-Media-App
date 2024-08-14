@@ -34,7 +34,7 @@ userRoutes.get('/api/users', async(req, res) => {
 userRoutes.post('/api/users/register', upload.single('image'), async(req, res) => {
     try {
         const { displayName, mail, password } = req.body;
-        const photo = req.file ? `http://localhost:3000/${req.file.path}` : 'http://localhost:3000/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg';
+        const photo = req.file ? `http://localhost:8001/${req.file.path}` : 'http://localhost:8001/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg';
         
         // Validation
         if (!displayName || displayName.length <= 2) {
@@ -92,7 +92,7 @@ userRoutes.put('/api/users/:id', upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const { displayName, mail, password } = req.body;
-        const photo = req.file ? `http://localhost:3000/${req.file.path}` : '';
+        const photo = req.file ? `http://localhost:8001/${req.file.path}` : '';
         
 
         const checkId = await DiscordUser.findById(id) || await USER.findById(id) || await GoogleUser.findById(id);

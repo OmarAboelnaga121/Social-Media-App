@@ -7,7 +7,7 @@ const doc = {
     title: 'Connect Verse',
     description: 'All APIS of The BackEnd',
   },
-  host: 'localhost:3000', // Update with your server's host
+  host: 'localhost:8001', // Update with your server's host
   schemes: ['http'],
 };
 
