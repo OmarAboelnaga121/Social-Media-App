@@ -24,7 +24,7 @@ const GoogleUserSchema = new mongoose.Schema({
     photo: {
         type: String,
         required: true,
-        default: 'http://localhost:8001/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
+        default: `${process.env.theHost}/uploads\\307ce493-b254-4b2d-8ba4-d12c080d6651.jpg`,
     },
     postNumber: {
         type: Number,

@@ -30,7 +30,7 @@ postRoutes.get('/api/posts', async (req, res) => {
 postRoutes.post("/api/posts", upload.single('image'), async(req, res) => {
     try {
         const { CreatorId, Description } = req.body
-        const photo = req.file ? `http://localhost:8001/${req.file.path}` : '';
+        const photo = req.file ? `${process.env.theHost}/${req.file.path}` : '';
 
         const checkUser = await GoogleUser.findOne({googleId: CreatorId}) || await USER.findById(CreatorId) || await GoogleUser.findById(CreatorId) || await DiscordUser.findById(CreatorId);
 

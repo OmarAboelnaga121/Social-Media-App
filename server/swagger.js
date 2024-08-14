@@ -7,8 +7,8 @@ const doc = {
     title: 'Connect Verse',
     description: 'All APIS of The BackEnd',
   },
-  host: 'localhost:8001', // Update with your server's host
-  schemes: ['http'],
+  host: `${process.env.theHost}`, // Update with your server's host
+  schemes: ['https'],
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {

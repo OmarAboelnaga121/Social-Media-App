@@ -52,5 +52,5 @@ app.use(contactRoutes);
 
 // The port which the application will listen on
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${process.env.theHost}`);
 });
