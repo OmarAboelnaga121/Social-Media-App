@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "build":"echo No build step needed",
     "test": "jest --watchAll",
-    "dev": "nodemon swagger.js"
+    "dev": "nodemon swagger.js",
+    "start": "node swagger.js"
   },
   "author": "Omar Wael",
   "license": "ISC",
