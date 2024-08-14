@@ -5,10 +5,10 @@
     "description": "All APIS of The BackEnd",
     "version": "1.0.0"
   },
-  "host": "localhost:8001",
+  "host": "undefined",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/api/posts": {
