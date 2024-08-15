@@ -149,7 +149,12 @@ userRoutes.get('/auth/google/callback',
   async(req, res) => {
     console.log(req.user.id);
     
-    res.cookie('_id', req.user.id, { httpOnly: false, secure: true, sameSite: 'None' });
+    res.cookie('_id', req.user.id, res.cookie('_id', req.user.id, { 
+        httpOnly: false, 
+        secure: false,  
+        sameSite: 'None',  
+        path: '/'
+    }));
     res.redirect('http://localhost:4200/dashboard');
   
   }
