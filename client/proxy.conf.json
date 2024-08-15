@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://jealous-pammi-omarwael-b75cda98.koyeb.app",
+      "target": "jealous-pammi-omarwael-b75cda98.koyeb.app",
       "secure": false,
       "changeOrigin": true,
       "cookieDomainRewrite": "localhost"
