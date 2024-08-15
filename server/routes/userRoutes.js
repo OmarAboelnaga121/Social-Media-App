@@ -134,7 +134,13 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 userRoutes.get('/auth/discord/callback',
     passport.authenticate('discord', { failureRedirect: 'https://master--c0nnectverse.netlify.app/register' }),
     (req, res) => {
-        res.cookie('_id', req.user.id, { httpOnly: false, secure: true, sameSite: 'None', domain: 'https://master--c0nnectverse.netlify.app' });
+        res.cookie('_id', req.user.id, { 
+            httpOnly: false, 
+            secure: true,  
+            sameSite: 'None',  
+            path: '/',
+            domain: 'master--c0nnectverse.netlify.app'
+        });
         res.redirect('https://master--c0nnectverse.netlify.app/dashboard');
     }
   );
@@ -149,13 +155,13 @@ userRoutes.get('/auth/google/callback',
   async(req, res) => {
     console.log(req.user.id);
     
-    res.cookie('_id', req.user.id, res.cookie('_id', req.user.id, { 
+    res.cookie('_id', req.user.id, { 
         httpOnly: false, 
         secure: true,  
         sameSite: 'None',  
         path: '/',
-        domain: 'https://master--c0nnectverse.netlify.app'
-    }));
+        domain: 'master--c0nnectverse.netlify.app'
+    });
     res.redirect('https://master--c0nnectverse.netlify.app/dashboard');
   
   }
