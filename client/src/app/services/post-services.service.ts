@@ -9,8 +9,7 @@ export class PostServicesService {
 
   constructor(private http : HttpClient) { }
 
-  // serverUrl: any = "https://jealous-pammi-omarwael-b75cda98.koyeb.app"
-  serverUrl: any = "http://localhost:8001"
+  serverUrl: any = "https://jealous-pammi-omarwael-b75cda98.koyeb.app"
 
   // fun to get the posts from backend
   getPosts() : Observable<any>{
