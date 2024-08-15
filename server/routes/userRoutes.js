@@ -133,10 +133,23 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 
 userRoutes.get('/auth/discord/callback',
     passport.authenticate('discord', { failureRedirect: '/login' }),
-    (req, res) => {
-        console.log(req.user.id);
-        res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
-        res.redirect('http://localhost:4200/dashboard');
+    async(req, res) => {
+        // console.log(req.user.id);
+
+        try {
+            const user = await User.findOne({ discordId: req.user.id });
+            if (user) {
+              res.cookie('_id', user._id.toString(), { httpOnly: false, secure: false });
+              res.redirect('http://localhost:4200/dashboard');
+            } else {
+              // Handle case where user does not exist
+              res.redirect('/login');
+            }
+          } catch (error) {
+            console.error('Error during user retrieval:', error);
+            res.redirect('/login');
+          }
+      
     }
   );
 
@@ -147,10 +160,20 @@ userRoutes.get('/api/users/google',
 
 userRoutes.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    console.log(req.user);
-    res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
-    res.redirect('http://localhost:4200/dashboard');
+  async(req, res) => {
+    try {
+        const user = await User.findOne({ googleId: req.user.id });
+        if (user) {
+          res.cookie('_id', user._id.toString(), { httpOnly: false, secure: false });
+          res.redirect('http://localhost:4200/dashboard');
+        } else {
+          res.redirect('/login');
+        }
+      } catch (error) {
+        console.error('Error during user retrieval:', error);
+        res.redirect('/login');
+      }
+  
   }
 );
 
