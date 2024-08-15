@@ -152,6 +152,16 @@
                 }
             }
         }
+        .socialMediaButtons{
+            .google, .discord{
+                i{
+                    position: absolute;
+                    top: 12px;
+                    left: 11px;
+                    font-size: 15px;
+                }
+            }
+        }
     }
     
 }
