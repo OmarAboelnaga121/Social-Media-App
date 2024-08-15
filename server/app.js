@@ -24,7 +24,7 @@ require('dotenv').config();
 //     credentials: true
 // }));
 app.use(cors({
-    origin: 'https://master--c0nnectverse.netlify.app/',
+    origin: 'https://master--c0nnectverse.netlify.app',
     credentials: true
 }));
 
