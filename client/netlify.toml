@@ -1,9 +1,9 @@
 [build]
-  publish = "dist/your-angular-app"
+  publish = "dist/client/browser"
   command = "ng build --prod"
 
 [build.environment]
-  NODE_VERSION = "16"
+  NODE_VERSION = "18.19"
 
 [context.deploy-preview]
   command = "ng build --prod"
