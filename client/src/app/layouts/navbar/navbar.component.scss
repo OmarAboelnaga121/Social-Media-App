@@ -72,6 +72,7 @@ header{
                 gap: 10px;
                 background-color: var(--grey-color);
                 flex-direction: column;
+                color: #111 !important;
                 z-index: 999;
                 // border-radius: 15px;
                 // padding-bottom: 5px;
@@ -81,6 +82,7 @@ header{
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                    padding-top: 10px;
                     border-bottom: 1px #111 solid;
                     padding-bottom: 10px;
                     padding-left: 10px;
