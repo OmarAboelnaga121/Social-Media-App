@@ -1,15 +1,15 @@
 [build]
   publish = "dist/client/browser"
-  command = "ng build --prod"
+  command = "ng build --configuration production"
 
 [build.environment]
   NODE_VERSION = "18.19"
 
 [context.deploy-preview]
-  command = "ng build --prod"
+  command = "ng build --configuration production"
 
 [context.branch-deploy]
-  command = "ng build --prod"
+  command = "ng build --configuration production"
 
 [context.production]
-  command = "ng build --prod"
+  command = "ng build --configuration production"
