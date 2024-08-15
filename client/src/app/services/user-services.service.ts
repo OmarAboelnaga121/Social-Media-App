@@ -14,7 +14,10 @@ export class UserServicesService {
 
   // Fun to get the data of one user
   getUser(userId : string) : Observable<any>{
+    console.log(userId);
     let data = this.http.get<any>(`${this.serverUrl}/api/user/${userId}`)
+    console.log(data);
+    
 
     return data
   }

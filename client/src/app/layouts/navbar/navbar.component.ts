@@ -72,26 +72,28 @@ export class NavbarComponent {
 
   // Fun to get the data of the authorized user
   getAuthUser(){
-    this.cookieId = this.cookieService.get('_id');    
+    this.cookieId = this.cookieService.get('_id');   
+    console.log(this.cookieService.get('_id'));
+     
 
-    this.httpClient.getUser(this.cookieId).subscribe(
+    this.httpClient.getUser(this.cookieService.get('_id')).subscribe(
       (data) => {
         this.user = data
         this.imageUrl = data.photo 
         
       },
-      () => {
-        this.httpClient.getUserProvider(this.cookieId).subscribe(
-          (data) => {
-            this.user = data
-            this.imageUrl = data.photo 
-            
-          },
-          (error) => {
-            // console.log(error)
-          }
-        );
+      (error) => {
+        console.log(error)
       }
+      // () => {
+      //   this.httpClient.getUserProvider(this.cookieId).subscribe(
+      //     (data) => {
+      //       this.user = data
+      //       this.imageUrl = data.photo 
+            
+      //     },
+      //   );
+      // }
     );
   }
   darkModeCheck(){
