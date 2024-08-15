@@ -1,0 +1,15 @@
+[build]
+  publish = "dist/your-angular-app"
+  command = "ng build --prod"
+
+[build.environment]
+  NODE_VERSION = "16"
+
+[context.deploy-preview]
+  command = "ng build --prod"
+
+[context.branch-deploy]
+  command = "ng build --prod"
+
+[context.production]
+  command = "ng build --prod"
