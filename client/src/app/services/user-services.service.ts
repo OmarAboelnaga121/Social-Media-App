@@ -9,8 +9,8 @@ export class UserServicesService {
 
   constructor(private http : HttpClient) { }
 
-  serverUrl: any = "https://jealous-pammi-omarwael-b75cda98.koyeb.app"
-  // serverUrl: any = "http://localhost:8001"
+  // serverUrl: any = "https://jealous-pammi-omarwael-b75cda98.koyeb.app"
+  serverUrl: any = "http://localhost:8001"
 
   // Fun to get the data of one user
   getUser(userId : string) : Observable<any>{

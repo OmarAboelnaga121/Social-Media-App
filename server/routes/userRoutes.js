@@ -132,24 +132,10 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 });
 
 userRoutes.get('/auth/discord/callback',
-    passport.authenticate('discord', { failureRedirect: '/login' }),
-    async(req, res) => {
-        // console.log(req.user.id);
-
-        try {
-            const user = await User.findOne({ discordId: req.user.id });
-            if (user) {
-              res.cookie('_id', user._id.toString(), { httpOnly: false, secure: false });
-              res.redirect('http://localhost:4200/dashboard');
-            } else {
-              // Handle case where user does not exist
-              res.redirect('/login');
-            }
-          } catch (error) {
-            console.error('Error during user retrieval:', error);
-            res.redirect('/login');
-          }
-      
+    passport.authenticate('discord', { failureRedirect: 'http://localhost:4200' }),
+    (req, res) => {
+        res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
+        res.redirect('http://localhost:4200/dashboard');
     }
   );
 
@@ -159,10 +145,14 @@ userRoutes.get('/api/users/google',
 );
 
 userRoutes.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: 'http://localhost:4200' }),
   async(req, res) => {
     try {
-        const user = await User.findOne({ googleId: req.user.id });
+        const user = await GoogleUser.findOne({ googleId: req.user.id });
+        console.log(user._id);
+        console.log(user._id.toString());
+        console.log(user);
+        
         if (user) {
           res.cookie('_id', user._id.toString(), { httpOnly: false, secure: false });
           res.redirect('http://localhost:4200/dashboard');
