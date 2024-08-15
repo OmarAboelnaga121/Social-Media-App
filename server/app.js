@@ -23,6 +23,10 @@ app.use(cors({
     origin: 'http://localhost:4200',
     credentials: true
 }));
+app.use(cors({
+    origin: 'https://master--c0nnectverse.netlify.app/',
+    credentials: true
+}));
 
 // Middlewares
 app.use(express.json());
