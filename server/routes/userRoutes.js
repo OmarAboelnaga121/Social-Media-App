@@ -145,24 +145,12 @@ userRoutes.get('/api/users/google',
 );
 
 userRoutes.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:4200' }),
+  passport.authenticate('google', { failureRedirect: 'http://localhost:4200/register' }),
   async(req, res) => {
-    try {
-        const user = await GoogleUser.findOne({ googleId: req.user.id });
-        console.log(user._id);
-        console.log(user._id.toString());
-        console.log(user);
-        
-        if (user) {
-          res.cookie('_id', user._id.toString(), { httpOnly: false, secure: false });
-          res.redirect('http://localhost:4200/dashboard');
-        } else {
-          res.redirect('/login');
-        }
-      } catch (error) {
-        console.error('Error during user retrieval:', error);
-        res.redirect('/login');
-      }
+    console.log(req.user.id);
+    
+    res.cookie('_id', req.user.id, { httpOnly: false, secure: false });
+    res.redirect('http://localhost:4200/dashboard');
   
   }
 );

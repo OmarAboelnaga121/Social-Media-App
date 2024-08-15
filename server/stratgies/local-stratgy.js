@@ -1,24 +1,26 @@
 const passport = require('passport');
 const localPassport = require('passport-local').Strategy;
 const USER = require('../db/models/user')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const googleUser = require('../db/models/googleUser');
 
 
 passport.serializeUser((user, done) => {
-    console.log(user);
+    // console.log(user);
+    // console.log(user._id); 
     done(null, user.id)
 })
 
 passport.deserializeUser(async(id, done) => {
-    console.log(id);
-    const checkId = await USER.findById(id)
+    // console.log(id);
+    const checkId = await USER.findById(id) || await googleUser.findById(id);
     done(null, checkId)
 })
 
 passport.use(new localPassport ({ usernameField: 'mail'}, async(mail, password, done) => {
     try {
-        console.log(mail);
-        const findUser = await USER.findOne({ mail })
+        // console.log(mail);
+        const findUser = await USER.findOne({ mail });
 
         if(!findUser) throw new Error("Mail is not found")
         
