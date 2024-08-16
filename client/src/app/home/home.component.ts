@@ -43,6 +43,8 @@ export class HomeComponent {
   // Fun to log the user by google
   loginGoogle() {
     this.httpClient.LoginUserGoogle()
+    console.log(document.cookie);
+
   }
 
     // Fun to log the user by discord

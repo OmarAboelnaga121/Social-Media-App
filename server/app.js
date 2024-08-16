@@ -38,7 +38,12 @@ app.use(session({
     secret: 'ljyhgsduoriyfuyoawisguyorhas', 
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } 
+    cookie: {
+        secure: true, 
+        domain: '.master--c0nnectverse.netlify.app', 
+        httpOnly: true,
+        sameSite: 'None' 
+    }
 }));
 
 //Passport Config
