@@ -7,70 +7,62 @@ import { UserServicesService } from './app/services/user-services.service';
 @Injectable({
   providedIn: 'root'
 })
- // this canActive is made for auth
 export class AuthGuardDashboard implements CanActivate {
 
-  constructor(private httpClient: UserServicesService, private router: Router, private cookieService: CookieService) {}
+  constructor(private httpClient: UserServicesService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    const userCookie = this.cookieService.get('_id');     
+    const userIdStorage: string | null = localStorage.getItem('_id');
 
-    return forkJoin({
-        user: this.httpClient.getUser(userCookie).pipe(
-          catchError(() => of(null)) // Handle error, return null if user request fails
-        ),
-        provider: this.httpClient.getUserProvider(userCookie).pipe(
-          catchError(() => of(null)) // Handle error, return null if provider request fails
-        )
-      }).pipe(
-        map(results => {
-          const { user, provider } = results;
-          if (user || provider) {
-            // At least one of the requests succeeded
-            return true;
-          } else {
-            // Both requests failed or user is invalid
-            this.router.navigate(['/']);
-            return false;
-          }
-        })
-      );
+    if (!userIdStorage) {
+      this.router.navigate(['/']);
+      return of(false);
+    }
+
+    return this.httpClient.getUser(userIdStorage).pipe(
+      map(user => {
+        if (user) {
+          return true; // User is authenticated
+        } else {
+          this.router.navigate(['/']);
+          return false; // User is not authenticated
+        }
+      }),
+      catchError(() => {
+        this.router.navigate(['/']);
+        return of(false);
+      })
+    );
   }  
 }
 
 @Injectable({
   providedIn: 'root'
 })
-// this canActive is made for unauth
 export class AuthGuardForUnAuth implements CanActivate {
 
-  constructor(private httpClient: UserServicesService, private router: Router, private cookieService: CookieService) {}
+  constructor(private httpClient: UserServicesService, private router: Router) {}
 
-  // this canActive is made for unauth
   canActivate(): Observable<boolean> {
-    const userCookie = this.cookieService.get('_id');
+    const userIdStorage: string | null = localStorage.getItem('_id');
 
-    if (!userCookie) {
-      return of(true);
+    if (!userIdStorage) {
+      return of(true); // No user ID, so allow access
     }
 
-    return forkJoin({
-        user: this.httpClient.getUser(userCookie).pipe(
-          catchError(() => of(null)) // Handle error, return null if user request fails
-        ),
-        provider: this.httpClient.getUserProvider(userCookie).pipe(
-          catchError(() => of(null)) // Handle error, return null if provider request fails
-        )
-      }).pipe(
-        map(results => {
-          const { user, provider } = results;
-          if (user || provider) {
-            this.router.navigate(['/dashboard']);
-            return false;
-          } else {
-            return true;
-          }
-        })
-      );
+    return this.httpClient.getUser(userIdStorage).pipe(
+      map(user => {
+        if (user) {
+          this.router.navigate(['/dashboard']);
+          return false; // User is authenticated, redirect to dashboard
+        } else {
+          return true; // User is not authenticated
+        }
+      }),
+      catchError(() => {
+        this.router.navigate(['/']);
+        return of(true); // Redirect to home if there's an error
+      })
+    );
   }  
 }

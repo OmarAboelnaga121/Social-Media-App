@@ -34,11 +34,12 @@ export class PostsComponent {
   openMenu: boolean = false;
   openPostId: string | null = null;
   darkMode !: boolean 
-  cookieId : string = ''
   user : any = []
   visible: boolean = false;
   errorMessage : string = ""
   hoverStates: { [key: number]: boolean } = {}; 
+  userId !: any 
+
 
 
   // On Initialize the page
@@ -77,22 +78,16 @@ export class PostsComponent {
 
   // Fun to get user data
   getUser(){
-    this.cookieId = this.cookieService.get('_id');    
+    // this.cookieId = this.cookieService.get('_id');   
+    this.userId = localStorage.getItem('_id')
+ 
 
-    this.userService.getUser(this.cookieId).subscribe(
+    this.userService.getUser(this.userId).subscribe(
       (data)=>{
         this.user = data
       },
       (error)=>{
-        this.userService.getUserProvider(this.cookieId).subscribe(
-          (data)=>{
-            this.user = data
-          },
-          (error)=>{
-            console.log(error);
-            
-          }
-        )
+        console.log(error);
       }
 )}
 
@@ -100,23 +95,16 @@ export class PostsComponent {
   //Fun to get the user's posts 
   getUserPost(post : any){
       this.userService.getUser(post.CreatorId).subscribe(
-        (data)=>{
-          post.userDetails = data; 
+      (data)=>{
+        post.userDetails = data; 
 
-        },
-        (error)=>{
-          this.userService.getUserProvider(post.CreatorId).subscribe(
-            (data)=>{
-              post.userDetails = data; 
-              console.log(this.posts);
-  
-            },
-            (error)=>{
-              console.log(error);
-            }
-      )
-        }
-  )}
+      },
+      (error)=>{
+            console.log(error);
+      }
+    )
+  }
+      
     
   // Fun to open the pop up of the report pop up
   makeReport(){
@@ -125,12 +113,12 @@ export class PostsComponent {
 
   // Fun to add or remove like
   addLike(post : any){
-    const userId = this.cookieService.get('_id')
+    this.userId = localStorage.getItem('_id')
 
-    this.postService.addLike(post._id, userId).subscribe(
+    this.postService.addLike(post._id, this.userId).subscribe(
       (res)=>{
         post.LikedBy = res.post.LikedBy;   
-        if (post.LikedBy.includes(userId)) {
+        if (post.LikedBy.includes(this.userId)) {
           post.Likes += 1;
         } else {
             post.Likes -= 1;
@@ -140,7 +128,8 @@ export class PostsComponent {
   }
 
   isLiked(post: any): boolean {
-    return post.LikedBy.includes(this.cookieService.get('_id'));
+    this.userId = localStorage.getItem('_id')
+    return post.LikedBy.includes(this.userId);
   }
 
   comment(postId : string){
@@ -168,9 +157,9 @@ export class PostsComponent {
     // Fun to make the post
     makePost(description : string, fileInput: HTMLInputElement){
       const image = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
-  
+      this.userId = localStorage.getItem('_id')
+
       const formData: FormData = new FormData();
-      console.log(this.cookieService.get('_id'));
   
       if(description.length < 5){
         this.errorMessage = "Description have to be more than 5 characters"
@@ -178,7 +167,7 @@ export class PostsComponent {
   
       }
       
-      formData.append('CreatorId', this.cookieService.get('_id'));
+      formData.append('CreatorId', this.userId);
       formData.append('Description', description);
       if (image) {
         formData.append('image', image, image.name);
@@ -197,9 +186,9 @@ export class PostsComponent {
     }
 
     addFriend(friendUserId : string){
-      const cookieId = this.cookieService.get('_id')
+      this.userId = localStorage.getItem('_id')
       
-      this.userService.addFriend(cookieId, friendUserId).subscribe(
+      this.userService.friend(this.userId, friendUserId).subscribe(
         (res)=>{
           window.location.reload();
         },

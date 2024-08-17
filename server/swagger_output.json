@@ -5,10 +5,10 @@
     "description": "All APIS of The BackEnd",
     "version": "1.0.0"
   },
-  "host": "undefined",
+  "host": "localhost:8001",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api/posts": {
@@ -408,7 +408,7 @@
         }
       }
     },
-    "/api/user/addFriend": {
+    "/api/user/friend": {
       "put": {
         "description": "",
         "parameters": [
@@ -441,7 +441,7 @@
         }
       }
     },
-    "/api/user/deleteFriend": {
+    "/api/user/friendCheck": {
       "put": {
         "description": "",
         "parameters": [

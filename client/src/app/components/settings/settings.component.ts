@@ -27,7 +27,7 @@ export class SettingsComponent {
     
   }
   logOut(){
-    this.cookieService.delete('_id', '/',);
+    localStorage.removeItem('_id');
     this.router.navigate(['/']).then(() => {
       window.location.reload();
     });

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { UserServicesService } from '../services/user-services.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { Router, RouterModule } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
@@ -15,11 +14,25 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
+  constructor(private httpClient : UserServicesService, private route : Router, private router: ActivatedRoute){}
 
   // Variables
   errorMessage : string = ''
   cookieId : string = ''
+
+  ngOnInit() : void{
+    this.router.queryParams.subscribe((params : any) => {
+      const userId = params['id'];
+      
+      if (userId) {
+        localStorage.setItem('_id', userId);
+        window.location.reload()
+        // this.route.navigate(['/dashboard'])
+      }
+      
+
+    });
+  }
 
   // Fun for user to login locally
   loginUserLocally(mail : string, password : string){
@@ -30,7 +43,7 @@ export class HomeComponent {
 
     this.httpClient.loginUserLocally(mail, password).subscribe(
       (res) => {
-        this.cookieService.set('_id', res._id)
+        localStorage.setItem('_id', res._id)
         this.route.navigate(['/dashboard'])
         window.location.reload()
       },
@@ -43,8 +56,6 @@ export class HomeComponent {
   // Fun to log the user by google
   loginGoogle() {
     this.httpClient.LoginUserGoogle()
-    console.log(document.cookie);
-
   }
 
     // Fun to log the user by discord

@@ -6,6 +6,8 @@
     font-size: 15px;
     transition: 0.3s;
     cursor: pointer;
+    display: flex;
+    justify-content: center;align-items: center;
 }
 
 .primaryButton{
@@ -31,4 +33,11 @@
     padding: 10px;
     color: var(--grey-color) !important;
     border-radius: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .primaryButton,.secondryButton, .dangerButton{
+        font-size: 12px;
+
+    }
 }

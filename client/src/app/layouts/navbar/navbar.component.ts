@@ -36,6 +36,7 @@ export class NavbarComponent {
   imageUrl ! : string
   darkMode !: boolean 
   searchValue : any = ''
+  userId !: any 
 
   constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
   
@@ -46,38 +47,33 @@ export class NavbarComponent {
 
   // Fun to check Auth
   checkAuth(){
-    this.cookieId = this.cookieService.get('_id');    
+    this.userId = localStorage.getItem('_id')
 
-    if(this.cookieId == '' || !this.cookieId){
+    if(this.userId == '' || !this.userId){
       this.Authanticated = false
       return;
     }
     // Check In USER DataBase
-    this.httpClient.getUser(this.cookieId).subscribe(
+    this.httpClient.getUser(this.userId).subscribe(
       () => {
         this.Authanticated = true;
-      },
-      () => {
-        this.httpClient.getUserProvider(this.cookieId).subscribe(
-          () => {
-            this.Authanticated = true;
-          },
-          () => {
-            this.Authanticated = false;
-          }
-        );
       }
     );
   }
 
   // Fun to get the data of the authorized user
   getAuthUser(){
-    this.cookieId = this.cookieService.get('_id');   
-    console.log(this.cookieService.get('_id'));
+    // this.cookieId = this.cookieService.get('_id');   
+    // console.log(this.cookieService.get('_id'));
+
+    this.userId = localStorage.getItem('_id')
      
 
-    this.httpClient.getUser(this.cookieService.get('_id')).subscribe(
+    console.log(this.userId);
+    
+    this.httpClient.getUser(this.userId).subscribe(
       (data) => {
+        console.log(data);
         this.user = data
         this.imageUrl = data.photo 
         
@@ -85,15 +81,7 @@ export class NavbarComponent {
       (error) => {
         console.log(error)
       }
-      // () => {
-      //   this.httpClient.getUserProvider(this.cookieId).subscribe(
-      //     (data) => {
-      //       this.user = data
-      //       this.imageUrl = data.photo 
-            
-      //     },
-      //   );
-      // }
+
     );
   }
   darkModeCheck(){

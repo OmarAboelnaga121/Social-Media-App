@@ -24,6 +24,7 @@ export class PopUpReportComponent {
   @Input() reportedPostId ! : string;
   @Output() reportData = new EventEmitter<any>();
   errorMessage : string = ""
+  reporterId !: any
 
   reasons : any = [
     { reason: 'Nudity or Sexual Content' },
@@ -40,13 +41,13 @@ export class PopUpReportComponent {
 
   // Fun to make a reporte
   makeReport(resportResoan : string, event: Event){
-    const reporterId : string = this.cookieService.get('_id')
+    this.reporterId = localStorage.getItem('_id')
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to proceed?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.postService.addReportForPost(this.reportedPostId, reporterId, resportResoan).subscribe(
+        this.postService.addReportForPost(this.reportedPostId, this.reporterId, resportResoan).subscribe(
           (res) => {
             this.visible = false
           },

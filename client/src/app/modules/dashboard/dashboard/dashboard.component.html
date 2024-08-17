@@ -4,7 +4,7 @@
             <ul>
                 <li><a routerLink="/dashboard/" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-home"></i> Home</a></li>
                 <li><a routerLink="/dashboard/settings" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-cog"></i> Settings</a></li>
-                <li><a [routerLink]="['/dashboard/profile', cookieId]" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-user"></i> Profile</a></li>
+                <li><a [routerLink]="['/dashboard/profile/', userId]" routerLinkActive="active" [class.darkModeText]="darkMode" [routerLinkActiveOptions]="{ exact: true }"><i class="pi pi-user"></i> Profile</a></li>
                 <li><a routerLink="/about" [class.darkModeText]="darkMode"><i class="pi pi-question"></i> About Us</a></li>
                 <li><a routerLink="/contact" [class.darkModeText]="darkMode"><i class="pi pi-envelope"></i> Contact</a></li>
             </ul>
@@ -17,7 +17,7 @@
             <h2>Friends</h2>
             <div *ngIf="user.friends?.length > 0" class="friendsConatiner">
                 @for(friend of user.friends;track friend){
-                    <div class="friendsContainer">
+                    <div class="friendsContainer" [routerLink]="'profile/' + friend.id">
                         <img [src]="friend.Image" alt="friendImage">
                         <h2>{{friend.displayName}}</h2>
                         <button class="primaryButton" (click)="deleteFrind(friend.id)"><i class="pi pi-user-minus"></i></button>

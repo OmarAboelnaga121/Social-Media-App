@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { UserServicesService } from '../../../services/user-services.service';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  constructor(private httpClient : UserServicesService, private cookieService: CookieService, private route : Router){}
+  constructor(private httpClient : UserServicesService, private route : Router){}
 
   // Variables
   errorMessage : string = ''

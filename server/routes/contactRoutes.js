@@ -17,7 +17,7 @@ contactRoutes.post('/send-email', (req, res) => {
         from: from,
         to: process.env.GMAIL_USER,
         subject: 'Connect Verse Request',
-        text: `${name}: ${message}`,
+        text: `${name} and ${from}: ${message}`,
         replyTo: from
       };
     

@@ -25,36 +25,44 @@ export class DashboardComponent {
   user : any = []
   showPosts : boolean = true
   darkMode !: boolean 
+  userId !: any 
+
 
   // View Childs to get access to
   @ViewChild(PostsComponent) postsComponent!: PostsComponent;
 
   // On initialize the page
   ngOnInit(): void{
+    this.router.queryParams.subscribe((params : any) => {
+      const token = params['token'];
+      const userId = params['id'];
+      
+      if (userId) {
+        localStorage.setItem('_id', userId);
+      }
+      
+
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+    });
+
     this.getUser();
     this.darkModeCheck();
   }
 
   // Fun to get user data
   getUser(){
-      this.cookieId = this.cookieService.get('_id');    
+      // this.cookieId = this.cookieService.get('_id');    
+      this.userId = localStorage.getItem('_id')
 
-      this.userService.getUser(this.cookieId).subscribe(
+
+      this.userService.getUser(this.userId).subscribe(
         (data)=>{
           this.user = data
         },
         (error)=>{
-          this.userService.getUserProvider(this.cookieId).subscribe(
-            (data)=>{
-              this.user = data
-              console.log(data);
-              
-            },
-            (error)=>{
-              console.log(error);
-              
-            }
-          )
+          console.log(error);
         }
   )}
 
@@ -67,9 +75,11 @@ export class DashboardComponent {
   }
 
   deleteFrind(friendUserId : string){
-    const cookieId = this.cookieService.get('_id')
+    // const cookieId = this.cookieService.get('_id')
+    this.userId = localStorage.getItem('_id')
+
     
-    this.userService.deleteFriend(cookieId, friendUserId).subscribe(
+    this.userService.friend(this.userId, friendUserId).subscribe(
       (res)=>{
         console.log(this.user);
         console.log(friendUserId);

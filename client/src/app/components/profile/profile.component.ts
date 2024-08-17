@@ -18,15 +18,15 @@ export class ProfileComponent {
   constructor(private postService : PostServicesService, private cookieService: CookieService, private userService : UserServicesService, private route: ActivatedRoute){}
 
   user : any = []
-  cookieId : string = ''
   dynamicParam !: string;
   postsOfUser : any = []
-
+  userId !:any
   liked ! : boolean 
   showComments : boolean = false
   openMenu: boolean = false;
   openPostId: string | null = null;
   darkMode !: boolean 
+  friends !: boolean
   visible: boolean = false;
   errorMessage : string = ""
 
@@ -36,6 +36,7 @@ export class ProfileComponent {
       console.log(this.dynamicParam);
       this.getUser();
       this.getUserPosts();
+      this.checkFriend(this.dynamicParam)
     });
 
   }
@@ -75,12 +76,12 @@ export class ProfileComponent {
 
   // Fun to add or remove like
   addLike(post : any){
-    const userId = this.cookieService.get('_id')
+    this.userId = localStorage.getItem('_id')
 
-    this.postService.addLike(post._id, userId).subscribe(
+    this.postService.addLike(post._id, this.userId).subscribe(
       (res)=>{
         post.LikedBy = res.post.LikedBy;   
-        if (post.LikedBy.includes(userId)) {
+        if (post.LikedBy.includes(this.userId)) {
           post.Likes += 1;
         } else {
             post.Likes -= 1;
@@ -113,5 +114,30 @@ export class ProfileComponent {
     } else {
       this.darkMode = false;
     }
+  }
+
+  addFriend(friendUserId : string){
+    this.userId = localStorage.getItem('_id')
+    
+    this.userService.friend(this.userId, friendUserId).subscribe(
+      (res)=>{                
+        window.location.reload();
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
+  }
+  checkFriend(friendUserId : string) : any{
+    this.userId = localStorage.getItem('_id')
+    
+    this.userService.checkFriend(this.userId, friendUserId).subscribe(
+      (res : any)=>{
+        this.friends = res
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
   }
 }

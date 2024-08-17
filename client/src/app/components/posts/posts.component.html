@@ -17,7 +17,7 @@
         <div class="postContainer" *ngIf="post">
             <div class="topOfPost">
                 <div class="profileViewer" (mouseenter)="hoverStates[post._id] = true" (mouseleave)="hoverStates[post._id] = false">
-                    <img [routerLink]="post.userDetails.googleId ? 'profile/' + post.userDetails.googleId : 'profile/' + post.userDetails._id" [src]="post.userDetails.photo" alt="userProfilePic" *ngIf="post.userDetails && post.userDetails.photo">
+                    <img [routerLink]="'profile/' + post.userDetails._id" [src]="post.userDetails.photo" alt="userProfilePic" *ngIf="post.userDetails && post.userDetails.photo">
                     <p *ngIf="post.userDetails">{{post.userDetails.displayName}}</p>
                     <button (click)="addFriend(post.userDetails._id)" class="addFrind primaryButton" [ngClass]="{'visible': hoverStates[post._id]}"><i class="pi pi-user-plus"></i></button>
                 </div>

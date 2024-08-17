@@ -132,13 +132,9 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 });
 
 userRoutes.get('/auth/discord/callback',
-    passport.authenticate('discord', { failureRedirect: '/register' }),
+    passport.authenticate('discord', { failureRedirect: 'https://master--c0nnectverse.netlify.app/register' }),
     (req, res) => {
-        res.cookie('_id', req.user.id, { 
-            httpOnly: false, 
-            secure: false,  
-        });
-        res.redirect('http://localhost:4200/dashboard');
+        res.redirect(`http://localhost:4200?id=${req.user.id}`); 
     }
   );
 
@@ -149,16 +145,8 @@ userRoutes.get('/api/users/google',
 
 userRoutes.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: 'https://master--c0nnectverse.netlify.app/register' }),
-  async(req, res) => {
-    console.log(req.user.id);
-    
-    res.cookie('_id', req.user.id, { 
-        httpOnly: false, 
-        secure: false,  
-        // domain: 'master--c0nnectverse.netlify.app'
-    });
-    res.redirect('http://localhost:4200/dashboard');
-  
+  (req, res) => {
+    res.redirect(`http://localhost:4200?id=${req.user.id}`); 
   }
 );
 

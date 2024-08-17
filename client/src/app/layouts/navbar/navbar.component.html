@@ -27,7 +27,7 @@
                     <div *ngFor="let userr of users | search: searchValue">
             
                         <!-- @for(userr of users; track userr ){ -->
-                            <div class="searchField" (click)="profileSearch(userr.googleId ? userr.googleId : userr._id)" [routerLink]="userr.googleId ? 'dashboard/profile/' + userr.googleId : 'dashboard/profile/' + userr._id">
+                            <div class="searchField" (click)="profileSearch(userr._id)" [routerLink]="'dashboard/profile/' + userr._id">
                                 <img [src]="userr.photo" alt="user photo">
                                 {{userr.displayName}}
                             </div>

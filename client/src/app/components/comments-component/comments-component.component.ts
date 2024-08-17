@@ -17,6 +17,7 @@ export class CommentsComponentComponent {
 
   @Input() postComments : any
   openMenu: boolean = false;
+  userId !: any
 
   ngOnInit() : void {    
     console.log(this.postComments.Comments);
@@ -24,10 +25,10 @@ export class CommentsComponentComponent {
   }
 
   addComment(commentPostText : string){
-    const userId = this.cookieService.get('_id');
+    this.userId = localStorage.getItem('_id');
     const commentPostId = this.postComments._id
 
-    this.postService.addCommentForPost(commentPostId, userId, commentPostText).subscribe(
+    this.postService.addCommentForPost(commentPostId, this.userId, commentPostText).subscribe(
       (res)=>{
         this.postComments.Comments.push(res)
       },

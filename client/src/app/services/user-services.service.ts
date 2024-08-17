@@ -15,7 +15,6 @@ export class UserServicesService {
   // Fun to get the data of one user
   getUser(userId : string) : Observable<any>{
     let data = this.http.get<any>(`${this.serverUrl}/api/user/${userId}`)
-    console.log(data);
     
 
     return data
@@ -61,17 +60,18 @@ export class UserServicesService {
     return this.http.post(`${this.serverUrl}/api/users/login`, {mail, password});
   }
 
-  sendContactData(name : string, mail : string, message : string) : Observable<any>{    
-    return this.http.post(`${this.serverUrl}/send-email`, {name, mail, message})
+  sendContactData(name : string, from : string, message : string) : Observable<any>{    
+    return this.http.post(`${this.serverUrl}/send-email`, {name, from, message})
   }
 
-  addFriend(userId : string, friendUserId : string){
-    return this.http.put(`${this.serverUrl}/api/user/addFriend`, {userId, friendUserId})
+  friend(userId : string, friendUserId : string){
+    return this.http.put(`${this.serverUrl}/api/user/friend`, {userId, friendUserId})
+  }
+  checkFriend(userId : string, friendUserId : string){
+    return this.http.put(`${this.serverUrl}/api/user/friendCheck`, {userId, friendUserId})
   }
 
-  deleteFriend(userId : string, friendUserId : string){
-    return this.http.put(`${this.serverUrl}/api/user/deleteFriend`, {userId, friendUserId})
-  }
+
 
   
 }
