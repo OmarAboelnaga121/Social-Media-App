@@ -1,6 +1,10 @@
+.theContainer{
+    width: 25rem;
+    max-width: 90%;
+}
 .container{
     display: flex;
-    width: 25rem;
+    width: 100%;
     padding: 20px;
     align-items: center;
     flex-direction: column;
@@ -27,5 +31,13 @@
     }
     button{
         width: 100%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .container{
+        width: 70% !important;
+        .input{
+            flex-direction: column;
+        }
     }
 }
