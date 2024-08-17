@@ -7,7 +7,9 @@
     transition: 0.3s;
     cursor: pointer;
     display: flex;
-    justify-content: center;align-items: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
 }
 
 .primaryButton{

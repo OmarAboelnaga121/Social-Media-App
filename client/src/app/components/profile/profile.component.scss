@@ -111,3 +111,26 @@
 .lightModeBackground{
     background-color: var(--grey-color);
 }
+
+@media screen and (max-width:  450px) {
+    .imgAndNameContainer{
+        img{
+            width: 75px !important;
+            height: 75px !important;
+        }
+        h2{
+            font-size: 20px !important;
+        }
+    }
+}
+@media screen and (max-width:  305px) {
+    .imgAndNameContainer{
+        img{
+            width: 50px !important;
+            height: 50px !important;
+        }
+        h2{
+            font-size: 15px !important;
+        }
+    }
+}

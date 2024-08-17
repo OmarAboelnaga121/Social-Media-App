@@ -296,3 +296,8 @@ header{
 .darkModeUl{
     color: var(--grey-color) !important;
 }
+@media screen and (max-width: 350px) {
+    .profileContainer{
+        display: none !important;
+    }
+}

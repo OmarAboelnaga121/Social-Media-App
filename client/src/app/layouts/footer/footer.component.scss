@@ -4,6 +4,7 @@ footer{
     justify-content: center;
     border-top: 1px solid var(--secondry-color);
     padding: 10px 0;
+    z-index: 1;
     .container{
         display: flex;
         justify-content: space-between;
@@ -44,6 +45,7 @@ footer{
                 margin-top: 10px;
                 a{
                     color: var(--secondry-color);
+                    cursor: pointer;
                 }
             }
             

@@ -153,7 +153,11 @@
             }
         }
         .socialMediaButtons{
+            flex-direction: column;
+            width: 100% !important;
+            gap: 15px !important;
             .google, .discord{
+                width: 100% !important;
                 i{
                     position: absolute;
                     top: 12px;
