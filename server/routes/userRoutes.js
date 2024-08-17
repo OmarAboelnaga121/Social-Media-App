@@ -134,7 +134,7 @@ userRoutes.get('/api/users/discord', passport.authenticate('discord'), (req, res
 userRoutes.get('/auth/discord/callback',
     passport.authenticate('discord', { failureRedirect: 'https://master--c0nnectverse.netlify.app/register' }),
     (req, res) => {
-        res.redirect(`http://localhost:4200?id=${req.user.id}`); 
+        res.redirect(`https://master--c0nnectverse.netlify.app?id=${req.user.id}`); 
     }
   );
 
@@ -146,7 +146,7 @@ userRoutes.get('/api/users/google',
 userRoutes.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: 'https://master--c0nnectverse.netlify.app/register' }),
   (req, res) => {
-    res.redirect(`http://localhost:4200?id=${req.user.id}`); 
+    res.redirect(`https://master--c0nnectverse.netlify.app?id=${req.user.id}`); 
   }
 );
 
