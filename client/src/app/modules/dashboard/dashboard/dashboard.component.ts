@@ -33,20 +33,6 @@ export class DashboardComponent {
 
   // On initialize the page
   ngOnInit(): void{
-    this.router.queryParams.subscribe((params : any) => {
-      const token = params['token'];
-      const userId = params['id'];
-      
-      if (userId) {
-        localStorage.setItem('_id', userId);
-      }
-      
-
-      if (token) {
-        localStorage.setItem('token', token);
-      }
-    });
-
     this.getUser();
     this.darkModeCheck();
   }
